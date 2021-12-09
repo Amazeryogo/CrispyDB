@@ -5,5 +5,9 @@
     "path":"/home/suvid/Projects/CrispyDB/DB/",
     "rpm": 150,
     "ccpm": 1,
-    "cdpm": 1
+    "cdpm": 1,
+    "port": 8080,
+    "host": "0.0.0.0",
+    "hide_config": false,
+    "environment": "development"
 }

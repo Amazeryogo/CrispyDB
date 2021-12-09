@@ -11,7 +11,7 @@ with open('config/config.json', 'r') as f:
     config = json.load(f)
 
 
-    
+
 
 with open('config/admin.json', 'r') as f:
     admin = json.load(f)
@@ -27,6 +27,9 @@ rpm = str(rpm) + " per minute"
 version = config['version']
 python_version = config['python version']
 
+PORT = config['port']
+HOST = config['host']
+
 if python_version != platform.python_version():
     print("Python version mismatch")
     sys.exit(1)
@@ -39,11 +42,24 @@ limiter = Limiter(
     default_limits=[rpm]
 )
 
+if config['hide_config'] != True and config['environment'] == 'production':
+            print("WARNING: CONFIG IS NOT HIDDEN")
+            print("CHANGE IMMEDIATELY")
+            print("THIS IS A SECURITY RISK IN PRODUCTION, CHANGE IT IN THE config/config.json FILE")
+else:
+    print("CONFIG IS HIDDEN")
 
 
 @app.route('/')
 def index():
-    return config
+    if config['hide_config'] == True:
+        return "CrispyDB is running"
+    else:
+        if config['environment'] == 'production':
+            return "SECURITY ERROR, ADMIN, PLEASE CHECK  THE LOGS"
+        else:
+            return config
+
 
 @app.route('/create/<collection>', methods=['GET','POST'])
 @limiter.limit(ccpm)
@@ -144,4 +160,4 @@ def delete(collection):
 
 
 
-app.run()
+app.run(host=HOST, port=PORT)
