@@ -2,7 +2,7 @@
     "version": "1.0.0",
     "name": "CrispyDB",
     "python version": "3.9.7",
-    "path":"<keep ur own path>",
+    "path":"/home/suvid/Projects/CrispyDB/DB/",
     "rpm": 150,
     "ccpm": 1,
     "cdpm": 1

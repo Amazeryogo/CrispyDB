@@ -7,10 +7,10 @@ import platform
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-with open('config.json', 'r') as f:
+with open('config/config.json', 'r') as f:
     config = json.load(f)
 
-with open('admin.json', 'r') as f:
+with open('config/admin.json', 'r') as f:
     admin = json.load(f)
 
 
