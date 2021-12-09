@@ -25,7 +25,7 @@ python_version = config['python version']
 PORT = config['port']
 HOST = config['host']
 
-if config['environment'] != 'production' or config['environment'] != 'development':
+if config['environment'] != 'production' and config['environment'] != 'development':
     print('[ERROR] Environment not set correctly')
     sys.exit(1)
 
@@ -160,7 +160,7 @@ def delete(collection):
 
 # idk how to make easter eggs, so just gonna leave this here
 @app.route('/why/am/i/so/lonely')
-@limiter.exempt()
+@limiter.exempt
 def why():
     return "I'm lonely"
 
