@@ -1,2 +1,2 @@
 # CrispyDB
-mongo and psql is just too hard :(
+Basically A DB, because mongo and psql are just too hard and are suited more for professional developers.
