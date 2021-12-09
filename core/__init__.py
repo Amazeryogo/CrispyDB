@@ -25,9 +25,12 @@ class Collection:
         self.save()
     
     def remove(self, item):
-        self.data.remove(item)
-        self.save()
-    
+        try:
+            self.data.remove(item)
+            self.save()
+        except ValueError:
+            pass
+
     def __iter__(self):
         return iter(self.data)
     
@@ -42,6 +45,10 @@ class Database:
         self.path = path
         self.collections = {}
         self.load()
+        for file in os.listdir(self.path):
+            if file.endswith(".json"):
+                self.collections[file[:-5]] = Collection(file[:-5], self.path)
+
     
     def load(self):
         for name in os.listdir(self.path):
