@@ -1,0 +1,6 @@
+Thu Dec 9
+
+I have added most of the basic features, it looks pretty good to me.
+I plan on adding seaching and a few more features.
+
+Ok goodnight.

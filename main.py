@@ -1,6 +1,5 @@
 from flask import *
 import json
-import os
 from core import *
 import sys
 import platform
@@ -9,26 +8,26 @@ from flask_limiter.util import get_remote_address
 
 with open('config/config.json', 'r') as f:
     config = json.load(f)
-
-
-
-
 with open('config/admin.json', 'r') as f:
     admin = json.load(f)
 
 
-request_per_minutes = config['rpm']
-collection_creation_per_minute = config['ccpm']
-ccpm = str(collection_creation_per_minute) + ' per minute'
-collection_deletion_per_minute = config['cdpm']
-cdpm = str(collection_deletion_per_minute) + ' per minute'
-rpm = request_per_minutes
-rpm = str(rpm) + " per minute"
+
+
+# request per minute
+rpm = str(config['rpm']) + ' per minute'
+#collection creation per minute
+ccpm = str(config['ccpm']) + ' per minute'
+# collection deletion per minute
+cdpm = str(config['cdpm']) + ' per minute'
 version = config['version']
 python_version = config['python version']
-
 PORT = config['port']
 HOST = config['host']
+
+if config['environment'] != 'production' or config['environment'] != 'development':
+    print('[ERROR] Environment not set correctly')
+    sys.exit(1)
 
 if python_version != platform.python_version():
     print("Python version mismatch")
@@ -53,7 +52,8 @@ else:
 @app.route('/')
 def index():
     if config['hide_config'] == True:
-        return "CrispyDB is running"
+
+        return "CrispyDB is running,{}".format(version) 
     else:
         if config['environment'] == 'production':
             return "SECURITY ERROR, ADMIN, PLEASE CHECK  THE LOGS"
@@ -158,6 +158,11 @@ def delete(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
+# idk how to make easter eggs, so just gonna leave this here
+@app.route('/why/am/i/so/lonely')
+@limiter.exempt()
+def why():
+    return "I'm lonely"
 
 
 app.run(host=HOST, port=PORT)
