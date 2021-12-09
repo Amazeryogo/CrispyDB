@@ -1,7 +1,7 @@
 from flask import *
 import json
 import os
-from Database import *
+from core import *
 
 with open('config.json', 'r') as f:
     config = json.load(f)
