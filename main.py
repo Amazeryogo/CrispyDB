@@ -10,6 +10,9 @@ from flask_limiter.util import get_remote_address
 with open('config/config.json', 'r') as f:
     config = json.load(f)
 
+
+    
+
 with open('config/admin.json', 'r') as f:
     admin = json.load(f)
 
