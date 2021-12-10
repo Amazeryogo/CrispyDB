@@ -6,8 +6,11 @@
     "rpm": 150,
     "ccpm": 1,
     "cdpm": 1,
-    "port": 8080,
-    "host": "0.0.0.0",
+    "port": 5000,
+    "host": "localhost",
     "hide_config": false,
-    "environment": "development"
+    "environment": "development",
+    "unique": true,
+    "admin name": "sus",
+    "admin password": "sus"
 }

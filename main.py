@@ -1,29 +1,8 @@
 from flask import *
 import json
 from core import *
-import sys
-import platform
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
+from config import *
 
-with open('config/config.json', 'r') as f:
-    config = json.load(f)
-with open('config/admin.json', 'r') as f:
-    admin = json.load(f)
-
-
-
-
-# request per minute
-rpm = str(config['rpm']) + ' per minute'
-#collection creation per minute
-ccpm = str(config['ccpm']) + ' per minute'
-# collection deletion per minute
-cdpm = str(config['cdpm']) + ' per minute'
-version = config['version']
-python_version = config['python version']
-PORT = config['port']
-HOST = config['host']
 
 if config['environment'] != 'production' and config['environment'] != 'development':
     print('[ERROR] Environment not set correctly')
@@ -66,7 +45,7 @@ def index():
 def create(collection):
     auth = request.authorization
     if auth:
-        if auth.username == admin['username'] and auth.password == admin['password']:
+        if auth.username == USERNAME and auth.password == PASSWORD:
             if collection in Database.collections:
                 return json.dumps({'error': 'Collection already exists'})
 
@@ -82,7 +61,7 @@ def create(collection):
 def load(collection):
     auth = request.authorization
     if auth:
-        if auth.username == admin['username'] and auth.password == admin['password']:
+        if auth.username == USERNAME and auth.password == PASSWORD:
             if collection not in Database.collections:
                 return json.dumps({'error': 'Collection does not exist'})
 
@@ -97,7 +76,7 @@ def load(collection):
 def save(collection):
     auth = request.authorization
     if auth:
-        if auth.username == admin['username'] and auth.password == admin['password']:
+        if auth.username == USERNAME and auth.password == PASSWORD:
             if collection not in Database.collections:
                 return json.dumps({'error': 'Collection does not exist'})
 
@@ -113,7 +92,7 @@ def save(collection):
 def add(collection):
     auth = request.authorization
     if auth:
-        if auth.username == admin['username'] and auth.password == admin['password']:
+        if auth.username == USERNAME and auth.password == PASSWORD:
             if collection not in Database.collections:
                 return json.dumps({'error': 'Collection does not exist'})
 
@@ -130,7 +109,7 @@ def add(collection):
 def remove(collection):
     auth = request.authorization
     if auth:
-        if auth.username == admin['username'] and auth.password == admin['password']:
+        if auth.username == USERNAME and auth.password == PASSWORD:
             if collection not in Database.collections:
                 return json.dumps({'error': 'Collection does not exist'})
 
@@ -147,12 +126,28 @@ def remove(collection):
 def delete(collection):
     auth = request.authorization
     if auth:
-        if auth.username == admin['username'] and auth.password == admin['password']:
+        if auth.username == USERNAME and auth.password == PASSWORD:
             if collection not in Database.collections:
                 return json.dumps({'error': 'Collection does not exist'})
 
             Database.deleteCollection(collection)
             return json.dumps({'success': 'Collection deleted'})
+        else:
+            return json.dumps({'error': 'Invalid credentials'})
+    else:
+        return json.dumps({'error': 'Unauthorized'})
+
+@app.route('/search/<collection>', methods=['GET','POST'])
+@limiter.limit(rpm)
+def search(collection):
+    auth = request.authorization
+    if auth:
+        if auth.username == USERNAME and auth.password == PASSWORD:
+            if collection not in Database.collections:
+                return json.dumps({'error': 'Collection does not exist'})
+
+            data = request.get_json()
+            return str(Database.search_in_collection(collection, data))
         else:
             return json.dumps({'error': 'Invalid credentials'})
     else:

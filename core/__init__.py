@@ -29,7 +29,7 @@ class Collection:
             self.data.remove(item)
             self.save()
         except ValueError:
-            pass
+            return "not yay"
 
     def __iter__(self):
         return iter(self.data)
@@ -76,7 +76,8 @@ class Database:
     
     def remove_from_collection(self, name, item):
         self.collections[name].remove(item)
-    
+
+
     def saveCollection(self, name):
         self.collections[name].save()
     
