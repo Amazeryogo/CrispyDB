@@ -11,6 +11,9 @@ SECRET_KEY = os.urandom(32)
 global LOGGED
 LOGGED = False
 
+global LOGGED_IP
+LOGGED_IP = ""
+
 if config['environment'] != 'production' and config['environment'] != 'development':
     print('[ERROR] Environment not set correctly')
     sys.exit(1)
@@ -179,7 +182,9 @@ def web_login():
             if form.username.data == USERNAME and form.password.data == PASSWORD:
                 global LOGGED
                 LOGGED = True
-                print(LOGGED)
+                global LOGGED_IP
+                LOGGED_IP = request.remote_addr
+                print(LOGGED_IP)
                 return redirect(url_for('web_dashboard'))
             else:
                 print("ERROR")
@@ -192,7 +197,7 @@ def web_login():
 def web_dashboard():
     newcollection = NewCollectionForm()
     if webUI == True:
-        if LOGGED == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
             if newcollection.validate_on_submit():
                 if newcollection.name.data not in Database.collections:
                     Database.createCollection(newcollection.name.data)
@@ -209,7 +214,7 @@ def web_dashboard():
 @app.route('/web/collections/<collection>', methods=['GET','POST'])
 def web_collections(collection):
     if webUI == True:
-        if LOGGED == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
             if collection not in Database.collections:
                 return "Collection does not exist"
             else:
@@ -227,7 +232,7 @@ def web_collections(collection):
 @app.route('/getdata/<collection>', methods=['GET','POST'])
 def getdata(collection):
     if webUI == True:
-        if LOGGED == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
             if collection not in Database.collections:
                 return "Collection does not exist"
             else:
