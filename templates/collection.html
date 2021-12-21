@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{collection}}</title>
+</head>
+<body>
+    <h1>{{collection}}</h1>
+    <!-- put the data in an iframe-->
+    <iframe src='/getdata/{{collection}}' type="json"  width="100%"></iframe>
+    <h2>Add to collection</h2>
+    <form method="POST" action='/web/collections/{{collection}}'>
+        {{form.csrf_token}}
+        {{form.data.label}}
+        {{form.data()}}
+        {{form.submit()}}
+    </form>
+</body>
+</html>

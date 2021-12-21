@@ -1,8 +1,15 @@
+from types import MethodType
 from flask import *
 import json
+
 from core import *
 from config import *
+from forms import *
+import os
+SECRET_KEY = os.urandom(32)
 
+global LOGGED
+LOGGED = False
 
 if config['environment'] != 'production' and config['environment'] != 'development':
     print('[ERROR] Environment not set correctly')
@@ -12,8 +19,15 @@ if python_version != platform.python_version():
     print("Python version mismatch")
     sys.exit(1)
 
+if webUI == True:
+    print("Web UI is on")
+else:
+    print("WebUI is off ")
+
+
 Database = Database(config['path'])
 app = Flask(__name__)
+app.config['SECRET_KEY'] = SECRET_KEY
 limiter = Limiter(
     app,
     key_func=get_remote_address,
@@ -152,6 +166,77 @@ def search(collection):
             return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
+
+@app.route('/web/status')
+def web_status():
+    return webUI
+
+@app.route('/web/login', methods=['GET','POST'])
+def web_login():
+    if webUI == True:
+        form = LoginForm()
+        if form.validate_on_submit():
+            if form.username.data == USERNAME and form.password.data == PASSWORD:
+                global LOGGED
+                LOGGED = True
+                print(LOGGED)
+                return redirect(url_for('web_dashboard'))
+            else:
+                print("ERROR")
+
+        return render_template('login.html', form=form)
+    else:
+        return "WebUI is off"
+
+@app.route('/web/dashboard', methods=['GET','POST'])
+def web_dashboard():
+    newcollection = NewCollectionForm()
+    if webUI == True:
+        if LOGGED == True:
+            if newcollection.validate_on_submit():
+                if newcollection.name.data not in Database.collections:
+                    Database.createCollection(newcollection.name.data)
+                    return redirect(url_for('web_dashboard'))
+                else:
+                    return "Collection already exists"
+            collections = Database.collections
+            return render_template('index.html',collections=collections,nform=newcollection)
+        else:
+            return redirect(url_for('web_login'))
+    else:
+        return "WebUI is off"
+
+@app.route('/web/collections/<collection>', methods=['GET','POST'])
+def web_collections(collection):
+    if webUI == True:
+        if LOGGED == True:
+            if collection not in Database.collections:
+                return "Collection does not exist"
+            else:
+                form = AddDataForm()
+                if form.validate_on_submit():
+                    Database.add_to_collection(collection, form.data.data)
+                    return redirect(url_for('web_collections', collection=collection))
+                # get the data in collection
+                data = Database.loadCollection(collection)
+                return render_template('collection.html',collection=collection,data=data,form=form)
+        else:
+            return redirect(url_for('web_login'))
+    else:
+        return "WebUI is off"
+@app.route('/getdata/<collection>', methods=['GET','POST'])
+def getdata(collection):
+    if webUI == True:
+        if LOGGED == True:
+            if collection not in Database.collections:
+                return "Collection does not exist"
+            else:
+                x = str(Database.loadCollection(collection))
+                return x  
+        else:
+            return redirect(url_for('web_login'))
+    else:
+        return "WebUI is off"
 
 # idk how to make easter eggs, so just gonna leave this here
 @app.route('/why/am/i/so/lonely')

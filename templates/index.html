@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrispyDB: Dashboard</title>
+    <script type="text/javascript">
+        var i = 0;
+            function change() {
+                var doc = document.getElementById("background");
+                var color = ["black", "blue", "brown", "green"];
+                doc.style.backgroundColor = color[i];
+                i = (i + 1) % color.length;
+            }
+            setInterval(change, 1000);
+    </script>
+</head>
+<body>
+    <!--Idk show some stuff-->
+    <h1 style="color: aqua;">CrispyDB</h1>
+    <h2>All Collections</h2>
+    {% for collection in collections %}
+    <h3>{{collection}}</h3>
+    <a href="/web/collections/{{collection}}">Learn More about {{collection}}</a>
+    {% endfor %}
+    <h2>Create a new collection</h2>
+    <form method="POST" action="/web/dashboard">
+        {{nform.csrf_token}}
+        <br/>
+        {{nform.name.label}}
+        {{nform.name()}}
+        <br/>
+        {{nform.submit()}}
+    </form>
+
+
+
+</body>
+</html>

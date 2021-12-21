@@ -1,8 +1,8 @@
 {
     "version": "1.0.0",
     "name": "CrispyDB",
-    "python version": "3.9.7",
-    "path":"/home/suvid/Projects/CrispyDB/DB/",
+    "python version": "3.9.5",
+    "path":"/home/suvid/Documents/CrispyDB/DB",
     "rpm": 150,
     "ccpm": 1,
     "cdpm": 1,
@@ -12,5 +12,6 @@
     "environment": "development",
     "unique": true,
     "admin name": "sus",
-    "admin password": "sus"
+    "admin password": "sus",
+    "webUI": true
 }
