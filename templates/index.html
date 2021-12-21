@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrispyDB: Dashboard</title>
+    <title>{{name}}: Dashboard</title>
     <script type="text/javascript">
         var i = 0;
             function change() {
@@ -18,9 +18,8 @@
 </head>
 <body>
     <!--Idk show some stuff-->
-    <h1 style="color: aqua;">CrispyDB</h1>
-    <h4>WebUI beta</h4>
-    <h2>All Collections</h2>
+    <h1 style="color: aqua;">{{name}}</h1><h6 style="color: rebeccapurple ;">webUI beta</h6>
+    <h2>Collections:</h2>
     {% for collection in collections %}
     <h3>{{collection}}</h3>
     <a href="/web/collections/{{collection}}">Learn More about {{collection}}</a>

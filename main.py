@@ -1,11 +1,7 @@
-from types import MethodType
 from flask import *
-import json
 from core import *
 from config import *
 from forms import *
-import os
-import logging
 
 
 SECRET_KEY = os.urandom(32)
@@ -177,6 +173,7 @@ def web_status():
     return webUI
 
 @app.route('/web/login', methods=['GET','POST'])
+@limiter.exempt
 def web_login():
     if webUI == True:
         form = LoginForm()
@@ -191,7 +188,7 @@ def web_login():
             else:
                 print("ERROR")
 
-        return render_template('login.html', form=form)
+        return render_template('login.html', form=form,name=name)
     else:
         return "WebUI is off"
 
@@ -207,7 +204,7 @@ def web_dashboard():
                 else:
                     return "Collection already exists"
             collections = Database.collections
-            return render_template('index.html',collections=collections,nform=newcollection)
+            return render_template('index.html',collections=collections,nform=newcollection,name=name)
         else:
             return redirect(url_for('web_login'))
     else:
@@ -231,6 +228,8 @@ def web_collections(collection):
             return redirect(url_for('web_login'))
     else:
         return "WebUI is off"
+
+
 @app.route('/getdata/<collection>', methods=['GET','POST'])
 def getdata(collection):
     if webUI == True:

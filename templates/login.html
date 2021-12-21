@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to CrispyDB</title>
+    <title>Login to {{name}}</title>
 </head>
 <body>
-    <h1>Login to CrispyDB</h1>
+    <h1>Login to {{name}}</h1>
  <!--USE JINJA-->
  <form method="POST" action="/web/login">
      {{form.csrf_token}} <br/>

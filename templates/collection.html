@@ -9,13 +9,13 @@
 <body>
     <h1>{{collection}}</h1>
     <!-- put the data in an iframe-->
+    <h3>collection's data</h3>
     <iframe src='/getdata/{{collection}}' type="json"  width="100%"></iframe>
     <h2>Add to collection</h2>
     <form method="POST" action='/web/collections/{{collection}}'>
-        {{form.csrf_token}}
-        {{form.data.label}}
-        {{form.data()}}
-        {{form.submit()}}
+        {{form.csrf_token}} <br/>
+        {{form.data()}} <br />
+        {{form.submit()}} <br />
     </form>
 </body>
 </html>
