@@ -10,12 +10,12 @@
     <h1>Login to CrispyDB</h1>
  <!--USE JINJA-->
  <form method="POST" action="/web/login">
-     {{form.csrf_token}}
-     {{form.username.label}}
+     {{form.csrf_token}} <br/>
+     <h4>{{form.username.label}}</h4>
      {{form.username()}}
-     {{form.password.label}}
-     {{form.password()}}
-     {{form.submit()}}
+     <h4>{{form.password.label}}</h4>
+     {{form.password()}} <br/>
+     {{form.submit()}}<br />
  </form>
 
 </body>

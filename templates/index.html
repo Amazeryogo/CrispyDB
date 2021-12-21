@@ -19,16 +19,16 @@
 <body>
     <!--Idk show some stuff-->
     <h1 style="color: aqua;">CrispyDB</h1>
+    <h4>WebUI beta</h4>
     <h2>All Collections</h2>
     {% for collection in collections %}
     <h3>{{collection}}</h3>
     <a href="/web/collections/{{collection}}">Learn More about {{collection}}</a>
     {% endfor %}
-    <h2>Create a new collection</h2>
     <form method="POST" action="/web/dashboard">
         {{nform.csrf_token}}
         <br/>
-        {{nform.name.label}}
+        {{nform.name.label}} <br>
         {{nform.name()}}
         <br/>
         {{nform.submit()}}

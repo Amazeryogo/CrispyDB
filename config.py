@@ -1,4 +1,5 @@
 import json
+import logging
 import sys
 import platform
 from flask_limiter import Limiter
@@ -24,3 +25,4 @@ HOST = config['host']
 USERNAME = config['admin name']
 PASSWORD = config['admin password']
 webUI = config['webUI']
+logginghuh = config['logging']

@@ -47,9 +47,7 @@ class Database:
         self.load()
         for file in os.listdir(self.path):
             if file.endswith(".json"):
-                self.collections[file[:-5]] = Collection(file[:-5], self.path)
-
-    
+                self.collections[file[:-5]] = Collection(file[:-5], self.path) 
     def load(self):
         for name in os.listdir(self.path):
             if name.endswith(".json"):
@@ -77,11 +75,8 @@ class Database:
     def remove_from_collection(self, name, item):
         self.collections[name].remove(item)
 
-
     def saveCollection(self, name):
         self.collections[name].save()
     
     def get_collection_data(self, name):
         return self.collections[name].data
-    
-    

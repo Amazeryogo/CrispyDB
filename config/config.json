@@ -11,7 +11,8 @@
     "hide_config": false,
     "environment": "development",
     "unique": true,
-    "admin name": "sus",
-    "admin password": "sus",
-    "webUI": true
+    "admin name": "admin",
+    "admin password": "admin",
+    "webUI": true,
+    "logging": true
 }

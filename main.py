@@ -1,11 +1,13 @@
 from types import MethodType
 from flask import *
 import json
-
 from core import *
 from config import *
 from forms import *
 import os
+import logging
+
+
 SECRET_KEY = os.urandom(32)
 
 global LOGGED
@@ -249,5 +251,10 @@ def getdata(collection):
 def why():
     return "I'm lonely"
 
-
-app.run(host=HOST, port=PORT)
+if __name__ == '__main__':
+    if logginghuh == True:
+        logging.basicConfig(filename='DB.log',level=logging.DEBUG)
+        print("LOGGING IS ON")
+    else:
+        pass
+    app.run(host=HOST, port=PORT)
