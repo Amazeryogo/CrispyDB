@@ -172,6 +172,10 @@ def search(collection):
 def web_status():
     return webUI
 
+@app.route('/web')
+def web():
+    return render_template('Intro.html')
+
 @app.route('/web/login', methods=['GET','POST'])
 @limiter.exempt
 def web_login():
