@@ -18,8 +18,8 @@
 </head>
 <body>
     <!--Idk show some stuff-->
-    <h1 style="color: aqua;">{{name}}</h1><h6 style="color: rebeccapurple ;">webUI beta</h6>
-    <h2>Collections:</h2>
+    <h1 style="text-align: center; color: aquamarine;">{{name}}: Dashboard</h1>
+    <h2 style="color: blueviolet">Collections:</h2>
     {% for collection in collections %}
     <h3>{{collection}}</h3>
     <a href="/web/collections/{{collection}}">Learn More about {{collection}}</a>
@@ -27,13 +27,18 @@
     <form method="POST" action="/web/dashboard">
         {{nform.csrf_token}}
         <br/>
-        {{nform.name.label}} <br>
+        <h3>{{nform.name.label}}</h3>
         {{nform.name()}}
         <br/>
         {{nform.submit()}}
     </form>
-
-
+    <br/>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <a href="/web/logout"><button>Logout</button></a>
 
 </body>
 </html>

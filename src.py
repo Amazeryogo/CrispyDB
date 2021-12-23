@@ -250,6 +250,8 @@ def getdata(collection):
         return "WebUI is off"
 
 
+
+
 @app.route('/web/logout')
 def web_logout():
     global LOGGED, LOGGED_IP
