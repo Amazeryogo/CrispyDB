@@ -19,10 +19,11 @@
 <body>
     <!--Idk show some stuff-->
     <h1 style="text-align: center; color: aquamarine;">{{name}}: Dashboard</h1>
-    <h2 style="color: blueviolet">Collections:</h2>
     {% for collection in collections %}
-    <h3>{{collection}}</h3>
-    <a href="/web/collections/{{collection}}">Learn More about {{collection}}</a>
+    <div style="border: 1px solid black; padding: 35px;">
+    <h2>{{collection}}</h2>
+    <a href="/web/collections/{{collection}}"><button style="background-color: blueviolet; color: white;"> More about {{collection}}</button></a>
+    </div>
     {% endfor %}
     <form method="POST" action="/web/dashboard">
         {{nform.csrf_token}}
