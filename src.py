@@ -6,6 +6,7 @@ from forms import *
 
 SECRET_KEY = os.urandom(32)
 
+
 global LOGGED
 LOGGED = False
 
@@ -247,6 +248,16 @@ def getdata(collection):
             return redirect(url_for('web_login'))
     else:
         return "WebUI is off"
+
+
+@app.route('/web/logout')
+def web_logout():
+    global LOGGED, LOGGED_IP
+    LOGGED = False
+    LOGGED_IP = None
+    return redirect(url_for('web_login'))
+
+
 
 # idk how to make easter eggs, so just gonna leave this here
 @app.route('/why/am/i/so/lonely')
