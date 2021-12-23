@@ -1,0 +1,19 @@
+INFO:werkzeug: * Running on http://localhost:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:23:44] "[32mGET /web/collections/nutrition HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:23:44] "GET /web/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:23:46] "[32mPOST /web/login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:23:46] "GET /web/dashboard HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://localhost:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:28:11] "[32mGET /web/dashboard HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:28:11] "GET /web/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:28:14] "[32mPOST /web/login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:28:14] "GET /web/dashboard HTTP/1.1" 200 -
+INFO:werkzeug: * Running on http://localhost:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:30:43] "[32mGET /web/dashboard HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:30:43] "GET /web/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:30:45] "[32mPOST /web/login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:30:45] "GET /web/dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:31:09] "[32mPOST /web/dashboard HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:31:09] "GET /web/dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:31:28] "GET /web/collections/admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [23/Dec/2021 19:31:28] "GET /getdata/admin HTTP/1.1" 200 -
