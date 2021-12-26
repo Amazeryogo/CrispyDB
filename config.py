@@ -5,15 +5,11 @@ import platform
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
+from colorama import Fore, Back, Style
 
 
 with open('config/config.json', 'r') as f:
     config = json.load(f)
-
-
-
-
-
 # request per minute
 rpm = str(config['rpm']) + ' per minute'
 #collection creation per minute
@@ -27,5 +23,4 @@ HOST = config['host']
 USERNAME = config['admin name']
 PASSWORD = config['admin password']
 webUI = config['webUI']
-logginghuh = config['logging']
 name = config['name']

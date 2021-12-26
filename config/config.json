@@ -4,15 +4,15 @@
     "python version": "3.9.5",
     "path":"/home/suvid/Documents/CrispyDB/DB",
     "rpm": 150,
-    "ccpm": 1,
-    "cdpm": 1,
+    "ccpm": 5,
+    "cdpm": 5,
     "port": 5000,
     "host": "localhost",
     "hide_config": false,
     "environment": "development",
+    "DEBUG": true,
     "unique": true,
     "admin name": "admin",
     "admin password": "admin",
-    "webUI": true,
-    "logging": true
+    "webUI": true
 }

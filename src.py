@@ -4,6 +4,7 @@ from config import *
 from forms import *
 
 
+
 SECRET_KEY = os.urandom(32)
 
 
@@ -14,17 +15,17 @@ global LOGGED_IP
 LOGGED_IP = ""
 
 if config['environment'] != 'production' and config['environment'] != 'development':
-    print('[ERROR] Environment not set correctly')
+    print(Fore.BLUE + '[ERROR] Environment not set correctly')
     sys.exit(1)
 
 if python_version != platform.python_version():
-    print("Python version mismatch")
+    print(Fore.BLUE + "Python version mismatch")
     sys.exit(1)
 
 if webUI == True:
-    print("Web UI is on")
+    print(Fore.BLUE +"Web UI is on")
 else:
-    print("WebUI is off ")
+    print(Fore.BLUE +"WebUI is off ")
 
 
 Database = Database(config['path'])
@@ -37,11 +38,11 @@ limiter = Limiter(
 )
 
 if config['hide_config'] != True and config['environment'] == 'production':
-            print("WARNING: CONFIG IS NOT HIDDEN")
-            print("CHANGE IMMEDIATELY")
-            print("THIS IS A SECURITY RISK IN PRODUCTION, CHANGE IT IN THE config/config.json FILE")
+            print(Fore.BLUE + "WARNING: CONFIG IS NOT HIDDEN")
+            print(Fore.BLUE + "CHANGE IMMEDIATELY")
+            print(Fore.BLUE + "THIS IS A SECURITY RISK IN PRODUCTION, CHANGE IT IN THE config/config.json FILE")
 else:
-    print("CONFIG IS HIDDEN")
+    print(Fore.BLUE + "CONFIG IS HIDDEN")
 
 
 @app.route('/')
@@ -68,7 +69,7 @@ def create(collection):
             Database.createCollection(collection)
             return json.dumps({'success': 'Collection created'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid cBLUEentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -83,7 +84,7 @@ def load(collection):
 
             return str(Database.loadCollection(collection))
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid cBLUEentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -99,7 +100,7 @@ def save(collection):
             Database.saveCollection(collection)
             return json.dumps({'success': 'Collection saved'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid cBLUEentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -116,7 +117,7 @@ def add(collection):
             Database.add_to_collection(collection, data)
             return json.dumps({'success': 'Item added'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid cBLUEentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -133,7 +134,7 @@ def remove(collection):
             Database.remove_from_collection(collection, data)
             return json.dumps({'success': 'Data removed'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid cBLUEentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -149,7 +150,7 @@ def delete(collection):
             Database.deleteCollection(collection)
             return json.dumps({'success': 'Collection deleted'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid cBLUEentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -165,7 +166,7 @@ def search(collection):
             data = request.get_json()
             return str(Database.search_in_collection(collection, data))
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid cBLUEentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -188,10 +189,9 @@ def web_login():
                 LOGGED = True
                 global LOGGED_IP
                 LOGGED_IP = request.remote_addr
-                print(LOGGED_IP)
                 return redirect(url_for('web_dashboard'))
             else:
-                print("ERROR")
+                print(Fore.BLUE + "ERROR")
 
         return render_template('login.html', form=form,name=name)
     else:
