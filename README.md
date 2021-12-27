@@ -1,9 +1,13 @@
 # CrispyDB
 A database for my projects.
 
-In a nutshell, its an API that uses the json library to write an read data in json files.
+In a nutshell, its an API that uses the json library to read and write data in json files.
 <br/>
 *It does have a webUI currently under development*
+
+The WebUI is really janky and still in development.
+<br/>
+*Also dont expect the WebUI to be very fancy like the dashboard for kubernetes*
 
 It uses the following libraries:
 ```
@@ -16,9 +20,6 @@ flask limiter
 flask WTF forms
 ```
 
-The WebUI is really janky and still in development.
-<br/>
-*Also dont expect the WebUI to be very fancy like the dashboard for kubernetes*
 
 Here is a sample script to test the DB
 ```python
@@ -36,6 +37,15 @@ print(requests.post('http://127.0.0.1:5000/delete/hmmm',auth=('admin','admin')).
 **I might make a python library for it, if anyone uses it....**
 
 [For some tweaking or changes, try seeing config/config.json]('https://github.com/Amazeryogo/CrispyDB/blob/main/config/config.json)
+
+To run it... just run the bash script
+```shell
+$ bash run.sh
+```
+
+
+
+
 ## I hope this project is helpful, if it isnt..... well you should use MongoDB instead.
 
 
