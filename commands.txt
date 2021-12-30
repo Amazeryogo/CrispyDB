@@ -1,0 +1,4 @@
+These are the commands that you can use in the text box in the collection page
+
+@#(*$$ - remove all from a collection
+

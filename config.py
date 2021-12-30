@@ -8,7 +8,7 @@ import os
 from colorama import Fore, Back, Style
 
 
-with open('config/config.json', 'r') as f:
+with open('.config/config.json', 'r') as f:
     config = json.load(f)
 # request per minute
 rpm = str(config['rpm']) + ' per minute'

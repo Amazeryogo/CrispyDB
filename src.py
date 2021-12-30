@@ -29,6 +29,7 @@ else:
 
 
 Database = Database(config['path'])
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 limiter = Limiter(
@@ -204,8 +205,11 @@ def web_dashboard():
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if newcollection.validate_on_submit():
                 if newcollection.name.data not in Database.collections:
-                    Database.createCollection(newcollection.name.data)
-                    return redirect(url_for('web_dashboard'))
+                    if newcollection.name.data != '':
+                        Database.createCollection(newcollection.name.data)
+                        return redirect(url_for('web_dashboard'))
+                    else:
+                        pass
                 else:
                     return "Collection already exists"
             collections = Database.collections
@@ -224,8 +228,14 @@ def web_collections(collection):
             else:
                 form = AddDataForm()
                 if form.validate_on_submit():
-                    Database.add_to_collection(collection, form.data.data)
-                    return redirect(url_for('web_collections', collection=collection))
+                    if form.data.data != "  ":
+                        if form.data.data == '':
+                            pass
+                        else:
+                            Database.add_to_collection(collection, form.data.data)
+                            return redirect(url_for('web_collections', collection=collection))
+                    else:
+                        Database.removeall_from_collection(collection)
                 # get the data in collection
                 data = Database.loadCollection(collection)
                 return render_template('collection.html',collection=collection,data=data,form=form)
@@ -233,6 +243,7 @@ def web_collections(collection):
             return redirect(url_for('web_login'))
     else:
         return "WebUI is off"
+
 
 
 @app.route('/getdata/<collection>', methods=['GET','POST'])

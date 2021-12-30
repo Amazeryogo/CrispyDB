@@ -39,6 +39,10 @@ class Collection:
 
     def __len__(self):
         return len(self.data)
+    
+    def removeall(self):
+        self.data = []
+        self.save()
 
 class Database:
     def __init__(self, path):
@@ -77,6 +81,9 @@ class Database:
 
     def saveCollection(self, name):
         self.collections[name].save()
+    
+    def removeall_from_collection(self,name):
+        self.collections[name].removeall()
     
     def get_collection_data(self, name):
         return self.collections[name].data
