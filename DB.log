@@ -1,205 +1,73 @@
-2021-12-28 23:50:16,427 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-28 23:50:16,431 - INFO -  * Restarting with stat
-2021-12-28 23:50:16,719 - WARNING -  * Debugger is active!
-2021-12-28 23:50:16,810 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 11:55:10,044 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 11:55:10,048 - INFO -  * Restarting with stat
-2021-12-30 11:55:10,349 - WARNING -  * Debugger is active!
-2021-12-30 11:55:10,350 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 11:56:38,654 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 11:56:38,702 - INFO -  * Restarting with stat
-2021-12-30 11:56:38,997 - WARNING -  * Debugger is active!
-2021-12-30 11:56:38,998 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 11:56:44,301 - INFO - 127.0.0.1 - - [30/Dec/2021 11:56:44] "GET / HTTP/1.1" 200 -
-2021-12-30 11:56:44,479 - INFO - 127.0.0.1 - - [30/Dec/2021 11:56:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
-2021-12-30 11:56:55,814 - INFO - 127.0.0.1 - - [30/Dec/2021 11:56:55] "GET /web HTTP/1.1" 200 -
-2021-12-30 11:56:57,982 - INFO - 127.0.0.1 - - [30/Dec/2021 11:56:57] "[32mGET /web/dashboard HTTP/1.1[0m" 302 -
-2021-12-30 11:56:58,009 - INFO - 127.0.0.1 - - [30/Dec/2021 11:56:58] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 11:57:00,319 - INFO - 127.0.0.1 - - [30/Dec/2021 11:57:00] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 11:57:00,344 - INFO - 127.0.0.1 - - [30/Dec/2021 11:57:00] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 11:57:04,517 - INFO - 127.0.0.1 - - [30/Dec/2021 11:57:04] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 11:57:04,624 - INFO - 127.0.0.1 - - [30/Dec/2021 11:57:04] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 11:57:50,568 - INFO - 127.0.0.1 - - [30/Dec/2021 11:57:50] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 11:57:50,584 - INFO - 127.0.0.1 - - [30/Dec/2021 11:57:50] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 11:57:50,708 - INFO - 127.0.0.1 - - [30/Dec/2021 11:57:50] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 11:58:07,797 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:07] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 11:58:07,876 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:07] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 11:58:15,732 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 11:58:15,737 - INFO -  * Restarting with stat
-2021-12-30 11:58:16,011 - WARNING -  * Debugger is active!
-2021-12-30 11:58:16,012 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 11:58:20,239 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:20] "[32mGET /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 11:58:20,272 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:20] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 11:58:21,827 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:21] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 11:58:21,837 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:21] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 11:58:22,892 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:22] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 11:58:22,966 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:22] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 11:58:38,797 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:38] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 11:58:38,805 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:38] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 11:58:38,855 - INFO - 127.0.0.1 - - [30/Dec/2021 11:58:38] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 11:59:32,878 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 11:59:32,925 - INFO -  * Restarting with stat
-2021-12-30 12:03:26,133 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 12:03:26,138 - INFO -  * Restarting with stat
-2021-12-30 12:03:26,439 - WARNING -  * Debugger is active!
-2021-12-30 12:03:26,439 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:03:29,127 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:29] "[32mGET /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:03:29,163 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:29] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 12:03:30,702 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:30] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 12:03:30,730 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:30] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:03:31,930 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:31] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:32,005 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:32] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:40,162 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:40] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:40,205 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:40] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:46,090 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:46] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:46,158 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:46] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:47,426 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:47] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:47,532 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:47] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:47,838 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:47] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:47,888 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:47] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:48,212 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:48] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:48,300 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:48] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:48,597 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:48] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:48,652 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:48] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:48,842 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:48] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:03:48,938 - INFO - 127.0.0.1 - - [30/Dec/2021 12:03:48] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:05:32,535 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 12:05:32,591 - INFO -  * Restarting with stat
-2021-12-30 12:05:32,941 - WARNING -  * Debugger is active!
-2021-12-30 12:05:32,942 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:05:36,395 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 12:05:36,438 - INFO -  * Restarting with stat
-2021-12-30 12:06:06,516 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 12:06:06,523 - INFO -  * Restarting with stat
-2021-12-30 12:06:06,790 - WARNING -  * Debugger is active!
-2021-12-30 12:06:06,791 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:06:23,006 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:23] "[33mGET /web/collections/ HTTP/1.1[0m" 404 -
-2021-12-30 12:06:26,530 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:26] "[33mGET /web/ HTTP/1.1[0m" 404 -
-2021-12-30 12:06:28,390 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:28] "[33mGET /web/ HTTP/1.1[0m" 404 -
-2021-12-30 12:06:30,174 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:30] "GET /web HTTP/1.1" 200 -
-2021-12-30 12:06:33,384 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:33] "[32mGET /web/dashboard HTTP/1.1[0m" 302 -
-2021-12-30 12:06:33,407 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:33] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 12:06:35,024 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:35] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 12:06:35,047 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:35] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:06:44,525 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:44] "[32mPOST /web/dashboard HTTP/1.1[0m" 302 -
-2021-12-30 12:06:44,539 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:44] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:06:47,223 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:47] "POST /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:06:48,875 - INFO - 127.0.0.1 - - [30/Dec/2021 12:06:48] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:07:21,271 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 12:07:21,313 - INFO -  * Restarting with stat
-2021-12-30 12:07:49,680 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 12:07:49,689 - INFO -  * Restarting with stat
-2021-12-30 12:07:49,988 - WARNING -  * Debugger is active!
-2021-12-30 12:07:49,988 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:08:03,329 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 12:08:03,336 - INFO -  * Restarting with stat
-2021-12-30 12:08:03,597 - WARNING -  * Debugger is active!
-2021-12-30 12:08:03,598 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:08:05,620 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:05] "[32mGET /web/dashboard HTTP/1.1[0m" 302 -
-2021-12-30 12:08:05,645 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:05] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 12:08:07,105 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:07] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 12:08:07,133 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:07] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:08:10,313 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:10] "POST /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:08:11,739 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:11] "POST /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:08:12,748 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:12] "POST /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:08:37,525 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/main.py', reloading
-2021-12-30 12:08:37,563 - INFO -  * Restarting with stat
-2021-12-30 12:08:51,581 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 12:08:51,590 - INFO -  * Restarting with stat
-2021-12-30 12:08:51,890 - WARNING -  * Debugger is active!
-2021-12-30 12:08:51,891 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:08:53,701 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:53] "[32mPOST /web/dashboard HTTP/1.1[0m" 302 -
-2021-12-30 12:08:53,714 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:53] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 12:08:55,725 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:55] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 12:08:55,753 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:55] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:08:59,709 - INFO - 127.0.0.1 - - [30/Dec/2021 12:08:59] "POST /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:09:00,832 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:00] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:00,943 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:00] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:02,154 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:02] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:09:02,160 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:02] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:02,208 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:02] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:03,531 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:03] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:09:03,540 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:03] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:03,583 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:03] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:05,010 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:05] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:09:05,016 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:05] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:05,061 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:05] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:07,111 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:07] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:09:07,119 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:07] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:07,171 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:07] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:31,831 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 12:09:31,878 - INFO -  * Restarting with stat
-2021-12-30 12:09:49,238 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 12:09:49,241 - INFO -  * Restarting with stat
-2021-12-30 12:09:49,585 - WARNING -  * Debugger is active!
-2021-12-30 12:09:49,586 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:09:50,448 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:50] "[32mGET /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:09:50,485 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:50] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 12:09:53,208 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:53] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 12:09:53,236 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:53] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:09:54,542 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:54] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:54,661 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:54] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:56,159 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:56] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:09:56,165 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:56] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:56,210 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:56] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:58,147 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:58] "[32mPOST /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:09:58,153 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:58] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:09:58,195 - INFO - 127.0.0.1 - - [30/Dec/2021 12:09:58] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:23,043 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 12:10:23,084 - INFO -  * Restarting with stat
-2021-12-30 12:10:23,392 - WARNING -  * Debugger is active!
-2021-12-30 12:10:23,392 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:10:26,906 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 12:10:26,947 - INFO -  * Restarting with stat
-2021-12-30 12:10:45,509 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
-2021-12-30 12:10:45,516 - INFO -  * Restarting with stat
-2021-12-30 12:10:45,795 - WARNING -  * Debugger is active!
-2021-12-30 12:10:45,796 - INFO -  * Debugger PIN: 896-629-313
-2021-12-30 12:10:48,261 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:48] "[32mGET /web/collections/.cache HTTP/1.1[0m" 302 -
-2021-12-30 12:10:48,291 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:48] "GET /web/login HTTP/1.1" 200 -
-2021-12-30 12:10:49,847 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:49] "[32mPOST /web/login HTTP/1.1[0m" 302 -
-2021-12-30 12:10:49,871 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:49] "GET /web/dashboard HTTP/1.1" 200 -
-2021-12-30 12:10:50,808 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:50] "GET /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:50,916 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:50] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:53,336 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:53] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:53,381 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:53] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:54,128 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:54] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:54,202 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:54] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:54,719 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:54] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:54,801 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:54] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:54,927 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:54] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:54,970 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:54] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,141 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,190 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,355 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,396 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,541 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,586 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,743 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,790 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,935 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:55,980 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:55] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:56,128 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:56] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:56,170 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:56] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:56,303 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:56] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:56,348 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:56] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:56,503 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:56] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:10:56,556 - INFO - 127.0.0.1 - - [30/Dec/2021 12:10:56] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:04,285 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:04] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:04,392 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:04] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:07,356 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:07] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:07,434 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:07] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:08,010 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:08] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:08,072 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:08] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:08,328 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:08] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:08,410 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:08] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:08,681 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:08] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:08,765 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:08] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:08,986 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:08] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:09,104 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:09] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:09,307 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:09] "POST /web/collections/.cache HTTP/1.1" 200 -
-2021-12-30 12:11:09,355 - INFO - 127.0.0.1 - - [30/Dec/2021 12:11:09] "GET /getdata/.cache HTTP/1.1" 200 -
-2021-12-30 12:47:09,255 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
-2021-12-30 12:47:09,281 - INFO -  * Restarting with stat
-2021-12-30 12:47:09,461 - WARNING -  * Debugger is active!
-2021-12-30 12:47:09,462 - INFO -  * Debugger PIN: 896-629-313
+2022-01-01 18:21:41,005 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
+2022-01-01 18:21:41,008 - INFO -  * Restarting with stat
+2022-01-01 18:21:41,256 - WARNING -  * Debugger is active!
+2022-01-01 18:21:41,333 - INFO -  * Debugger PIN: 150-655-313
+2022-01-01 18:21:50,696 - INFO - 127.0.0.1 - - [01/Jan/2022 18:21:50] "GET / HTTP/1.1" 200 -
+2022-01-01 18:21:50,818 - INFO - 127.0.0.1 - - [01/Jan/2022 18:21:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2022-01-01 18:22:04,152 - INFO - 127.0.0.1 - - [01/Jan/2022 18:22:04] "GET /web HTTP/1.1" 200 -
+2022-01-01 18:22:59,056 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
+2022-01-01 18:22:59,059 - INFO -  * Restarting with stat
+2022-01-01 18:22:59,304 - WARNING -  * Debugger is active!
+2022-01-01 18:22:59,305 - INFO -  * Debugger PIN: 150-655-313
+2022-01-01 18:23:01,754 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:01] "[32mGET /web/dashboard HTTP/1.1[0m" 302 -
+2022-01-01 18:23:01,815 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:01] "GET /web/login HTTP/1.1" 200 -
+2022-01-01 18:23:03,922 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:03] "[32mPOST /web/login HTTP/1.1[0m" 302 -
+2022-01-01 18:23:03,949 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:03] "GET /web/dashboard HTTP/1.1" 200 -
+2022-01-01 18:23:12,219 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:12] "[32mPOST /web/dashboard HTTP/1.1[0m" 302 -
+2022-01-01 18:23:12,234 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:12] "GET /web/dashboard HTTP/1.1" 200 -
+2022-01-01 18:23:14,260 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:14] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:23:14,320 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:14] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:23:27,070 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:27] "[32mPOST /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:23:27,084 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:27] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:23:27,177 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:27] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:23:44,274 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:44] "[32mPOST /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:23:44,287 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:44] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:23:44,376 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:44] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:23:57,855 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:57] "[32mPOST /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:23:57,868 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:57] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:23:57,973 - INFO - 127.0.0.1 - - [01/Jan/2022 18:23:57] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:24:02,088 - INFO - 127.0.0.1 - - [01/Jan/2022 18:24:02] "[32mPOST /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:24:02,097 - INFO - 127.0.0.1 - - [01/Jan/2022 18:24:02] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:24:02,159 - INFO - 127.0.0.1 - - [01/Jan/2022 18:24:02] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:24:37,655 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
+2022-01-01 18:24:37,699 - INFO -  * Restarting with stat
+2022-01-01 18:24:38,013 - WARNING -  * Debugger is active!
+2022-01-01 18:24:38,014 - INFO -  * Debugger PIN: 150-655-313
+2022-01-01 18:24:38,527 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
+2022-01-01 18:24:38,574 - INFO -  * Restarting with stat
+2022-01-01 18:25:43,233 - INFO -  * Running on http://localhost:5000/ (Press CTRL+C to quit)
+2022-01-01 18:25:43,237 - INFO -  * Restarting with stat
+2022-01-01 18:25:43,496 - WARNING -  * Debugger is active!
+2022-01-01 18:25:43,497 - INFO -  * Debugger PIN: 150-655-313
+2022-01-01 18:25:46,159 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:46] "[32mGET /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:25:46,191 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:46] "GET /web/login HTTP/1.1" 200 -
+2022-01-01 18:25:47,751 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:47] "[32mPOST /web/login HTTP/1.1[0m" 302 -
+2022-01-01 18:25:47,778 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:47] "GET /web/dashboard HTTP/1.1" 200 -
+2022-01-01 18:25:49,155 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:49] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:25:49,265 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:49] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:25:51,772 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:51] "[35m[1mPOST /web/collections/local HTTP/1.1[0m" 500 -
+2022-01-01 18:25:51,882 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:51] "GET /web/collections/local?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2022-01-01 18:25:51,883 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:51] "GET /web/collections/local?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2022-01-01 18:25:51,901 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:51] "GET /web/collections/local?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2022-01-01 18:25:52,096 - INFO - 127.0.0.1 - - [01/Jan/2022 18:25:52] "GET /web/collections/local?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2022-01-01 18:26:04,255 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
+2022-01-01 18:26:04,297 - INFO -  * Restarting with stat
+2022-01-01 18:26:04,610 - WARNING -  * Debugger is active!
+2022-01-01 18:26:04,611 - INFO -  * Debugger PIN: 150-655-313
+2022-01-01 18:26:11,663 - INFO -  * Detected change in '/home/suvid/Documents/CrispyDB/src.py', reloading
+2022-01-01 18:26:11,707 - INFO -  * Restarting with stat
+2022-01-01 18:26:12,035 - WARNING -  * Debugger is active!
+2022-01-01 18:26:12,036 - INFO -  * Debugger PIN: 150-655-313
+2022-01-01 18:26:15,123 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:15] "[32mPOST /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:26:15,134 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:15] "GET /web/login HTTP/1.1" 200 -
+2022-01-01 18:26:16,665 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:16] "[32mPOST /web/login HTTP/1.1[0m" 302 -
+2022-01-01 18:26:16,675 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:16] "GET /web/dashboard HTTP/1.1" 200 -
+2022-01-01 18:26:18,337 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:18] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:26:18,410 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:18] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:26:21,599 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:21] "[32mPOST /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:26:21,613 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:21] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:26:21,722 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:21] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:26:25,224 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:25] "[32mPOST /web/collections/local HTTP/1.1[0m" 302 -
+2022-01-01 18:26:25,236 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:25] "GET /web/collections/local HTTP/1.1" 200 -
+2022-01-01 18:26:25,310 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:25] "GET /getdata/local HTTP/1.1" 200 -
+2022-01-01 18:26:36,741 - INFO - 127.0.0.1 - - [01/Jan/2022 18:26:36] "GET /web/login HTTP/1.1" 200 -

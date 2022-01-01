@@ -60,8 +60,8 @@ class Database:
     def createCollection(self, name):
         self.collections[name] = Collection(name, self.path)
     
-    def get_collections(self, name):
-        return self.collections[name]
+    def get_collections(self):
+        return self.collections.keys()
     
     def get_collection_data(self, name):
         return self.collections[name].data
@@ -85,5 +85,5 @@ class Database:
     def removeall_from_collection(self,name):
         self.collections[name].removeall()
     
-    def get_collection_data(self, name):
-        return self.collections[name].data
+    def search_in_collection(self, name, search):
+        return [item for item in self.collections[name].data if search in item]

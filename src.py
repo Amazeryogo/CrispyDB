@@ -7,7 +7,6 @@ from forms import *
 
 SECRET_KEY = os.urandom(32)
 
-
 global LOGGED
 LOGGED = False
 
@@ -49,7 +48,6 @@ else:
 @app.route('/')
 def index():
     if config['hide_config'] == True:
-
         return "CrispyDB is running,{}".format(version) 
     else:
         if config['environment'] == 'production':
@@ -228,6 +226,8 @@ def web_collections(collection):
             else:
                 form = AddDataForm()
                 if form.validate_on_submit():
+                    if form.data.data == "@#(*$$":
+                        Database.removeall_from_collection(collection)
                     if form.data.data != "  ":
                         if form.data.data == '':
                             pass
@@ -261,8 +261,6 @@ def getdata(collection):
         return "WebUI is off"
 
 
-
-
 @app.route('/web/logout')
 def web_logout():
     global LOGGED, LOGGED_IP
@@ -271,9 +269,3 @@ def web_logout():
     return redirect(url_for('web_login'))
 
 
-
-# idk how to make easter eggs, so just gonna leave this here
-@app.route('/why/am/i/so/lonely')
-@limiter.exempt
-def why():
-    return "I'm lonely"
