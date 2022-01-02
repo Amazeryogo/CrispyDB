@@ -1,1 +1,0 @@
-dont mind this folder, its for testing on my computer

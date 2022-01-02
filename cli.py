@@ -58,10 +58,7 @@ if username == USERNAME:
                     print(command," not found")
             except:
                 print("oh no, we ran into a problem, try again!")
-            kum = []
-
-
-                    
+            kum = []         
     else:
         print("wrong password")
 else:
