@@ -13,5 +13,6 @@
     "DEBUG": true,
     "admin name": "admin",
     "admin password": "admin",
-    "webUI": true
+    "webUI": true,
+    "open_browser": false
 }
