@@ -43,6 +43,11 @@ To run it... just run the bash script
 $ bash run.sh
 ```
 
+To run the cli
+```shell
+$ bash run.sh cli
+```
+
 
 
 
