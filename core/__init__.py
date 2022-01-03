@@ -61,7 +61,7 @@ class Database:
         self.collections[name] = Collection(name, self.path)
     
     def get_collections(self):
-        return self.collections.keys()
+        return list(self.collections.keys())
     
     def get_collection_data(self, name):
         return self.collections[name].data
