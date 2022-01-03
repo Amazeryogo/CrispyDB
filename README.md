@@ -38,6 +38,8 @@ print(requests.post('http://127.0.0.1:5000/delete/hmmm',auth=('admin','admin')).
 
 [For some tweaking or changes, try seeing config/config.json]('https://github.com/Amazeryogo/CrispyDB/blob/main/config/config.json)
 
+### How to run the database
+
 To run it... just run the bash script
 ```shell
 $ bash run.sh
@@ -75,8 +77,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+SOFTWARE.```
 WARNING:
 DONT EVER RUN 
 ```shell

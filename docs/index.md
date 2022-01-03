@@ -36,7 +36,9 @@ print(requests.post('http://127.0.0.1:5000/delete/hmmm',auth=('admin','admin')).
 
 **I might make a python library for it, if anyone uses it....**
 
-[For some tweaking or changes, try seeing config/config.json]('https://github.com/Amazeryogo/CrispyDB/blob/main/config/config.json')
+[For some tweaking or changes, try seeing config/config.json]('https://github.com/Amazeryogo/CrispyDB/blob/main/config/config.json)
+
+### How to run the database
 
 To run it... just run the bash script
 ```shell
