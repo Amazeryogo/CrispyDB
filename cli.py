@@ -80,7 +80,7 @@ try:
         print("wrong username")
 except KeyboardInterrupt:
     print("bye")
-#    quit()
+    quit()
 except EOFError:
     print("bye")
-#    quit()
+    quit()
