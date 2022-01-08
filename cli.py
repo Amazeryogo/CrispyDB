@@ -4,7 +4,6 @@ import pwinput
 import json
 from core import collection
 
-from src import valuesearch
 from config import version
 
 database = Database(config['path'])
