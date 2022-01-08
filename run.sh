@@ -1,7 +1,7 @@
 pip3 install -r requirements.txt
-git stash
-git pull
-git stash 
+#git stash
+#git pull
+#git stash 
 echo 'do remember to get the latest version of the code whenever possible'
 if [ -z "$1" ]; then
     python3 main.py
