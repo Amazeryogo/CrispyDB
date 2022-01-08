@@ -46,3 +46,8 @@ class Database:
     
     def search_in_collection(self, name, search):
         return [item for item in self.collections[name].data if search in item]
+    
+    def save(self):
+        for collection in self.collections:
+            self.collections[collection].save()
+        return self

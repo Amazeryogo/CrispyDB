@@ -8,15 +8,15 @@ global LOGGED
 LOGGED = False
 
 kum = []
-commands = ["CREATE","GET","GETD","LOAD","DELETE","INSERT","REMOVE","SAVE","BURN"]
+commands = ["CREATE", "GET", "GETD", "LOAD", "DELETE", "INSERT", "REMOVE", "SAVE", "BURN"]
 
 try:
-    print("CrispyDB CLI, v1.0-testing") 
+    print("CrispyDB CLI, v1.0-testing")
     print("\t By Suvid Datta")
     print("Use \"help\" to learn more\n")
     print("PLEASE LOG IN FIRST!\n")
     username = input("username:")
-    password =  pwinput.pwinput()
+    password = pwinput.pwinput()
     if username == USERNAME:
         if password == PASSWORD:
             print("WELCOME BACK ", USERNAME, "!")
@@ -42,13 +42,13 @@ try:
                         database.deleteCollection(kum[1])
                         print("DONE")
                     elif command == "INSERT".lower():
-                        for i in range(2,len(kum)):
-                            database.add_to_collection(kum[1],kum[i])
+                        for i in range(2, len(kum)):
+                            database.add_to_collection(kum[1], kum[i])
                         print("DONE")
                     elif command == "REMOVE".lower():
-                        for i in range(2,len(kum)):
-                            database.remove_from_collection(kum[1],kum[i])   
-                        print("DONE") 
+                        for i in range(2, len(kum)):
+                            database.remove_from_collection(kum[1], kum[i])
+                        print("DONE")
                     elif command == "SAVE".lower():
                         database.saveCollection(kum[1])
                     elif command == "BURN".lower():
@@ -70,10 +70,10 @@ try:
                         print("bye")
                         quit()
                     else:
-                        print(command," not found")
+                        print(command, " not found")
                 except:
                     print("oh no, we ran into a problem, try again!")
-                kum = []         
+                kum = []
         else:
             print("wrong password")
     else:

@@ -1,8 +1,11 @@
+import threading
+from time import time
 from flask import *
 from core import *
 from config import *
+from core import database
 from forms import *
-
+from threading import *
 
 
 SECRET_KEY = os.urandom(32)
@@ -28,6 +31,7 @@ else:
 
 
 Database = Database(config['path'])
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -68,7 +72,7 @@ def create(collection):
             Database.createCollection(collection)
             return json.dumps({'success': 'Collection created'})
         else:
-            return json.dumps({'error': 'Invalid cBLUEentials'})
+            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -83,23 +87,20 @@ def load(collection):
 
             return str(Database.loadCollection(collection))
         else:
-            return json.dumps({'error': 'Invalid cBLUEentials'})
+            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/save/<collection>', methods=['GET','POST'])
+@app.route('/save', methods=['GET','POST'])
 @limiter.limit(rpm)
-def save(collection):
+def save():
     auth = request.authorization
     if auth:
         if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            Database.saveCollection(collection)
-            return json.dumps({'success': 'Collection saved'})
+            Database.save()
+            return json.dumps({'success': 'Database saved'})
         else:
-            return json.dumps({'error': 'Invalid cBLUEentials'})
+            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -114,9 +115,10 @@ def add(collection):
 
             data = request.get_json()
             Database.add_to_collection(collection, data)
+            print(Database.collections[collection].data)
             return json.dumps({'success': 'Item added'})
         else:
-            return json.dumps({'error': 'Invalid cBLUEentials'})
+            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -133,7 +135,7 @@ def remove(collection):
             Database.remove_from_collection(collection, data)
             return json.dumps({'success': 'Data removed'})
         else:
-            return json.dumps({'error': 'Invalid cBLUEentials'})
+            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -149,7 +151,7 @@ def delete(collection):
             Database.deleteCollection(collection)
             return json.dumps({'success': 'Collection deleted'})
         else:
-            return json.dumps({'error': 'Invalid cBLUEentials'})
+            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -165,7 +167,7 @@ def search(collection):
             data = request.get_json()
             return str(Database.search_in_collection(collection, data))
         else:
-            return json.dumps({'error': 'Invalid cBLUEentials'})
+            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 

@@ -22,12 +22,10 @@ class Collection:
     
     def add(self, item):
         self.data.append(item)
-        self.save()
     
     def remove(self, item):
         try:
             self.data.remove(item)
-            self.save()
         except ValueError:
             return "not yay"
 
@@ -42,4 +40,3 @@ class Collection:
     
     def removeall(self):
         self.data = []
-        self.save()
