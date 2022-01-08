@@ -136,8 +136,37 @@ def delete(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
+@app.route('/keysearch/<collection>', methods=['GET','POST'])
+def keysearch(collection):
+    auth = request.authorization
+    if auth:
+        if auth.username == USERNAME and auth.password == PASSWORD:
+            if collection not in Database.collections:
+                return json.dumps({'error': 'Collection does not exist'})
+
+            data = request.get_json()
+            return json.dumps(Database.keysearch(collection, data))
+        else:
+            return json.dumps({'error': 'Invalid credentials'})
+    else:
+        return json.dumps({'error': 'Unauthorized'})
+
+@app.route('/valuesearch/<collection>', methods=['GET','POST'])
+def valuesearch(collection):
+    auth = request.authorization
+    if auth:
+        if auth.username == USERNAME and auth.password == PASSWORD:
+            if collection not in Database.collections:
+                return json.dumps({'error': 'Collection does not exist'})
+
+            data = request.get_json()
+            return json.dumps(Database.valuesearch(collection, data))
+        else:
+            return json.dumps({'error': 'Invalid credentials'})
+    else:
+        return json.dumps({'error': 'Unauthorized'})
+
 @app.route('/search/<collection>', methods=['GET','POST'])
-@limiter.limit(rpm)
 def search(collection):
     auth = request.authorization
     if auth:
@@ -146,12 +175,12 @@ def search(collection):
                 return json.dumps({'error': 'Collection does not exist'})
 
             data = request.get_json()
-            return str(Database.search_in_collection(collection, data))
+            return json.dumps(Database.search(collection, data))
         else:
             return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
-
+        
 @app.route('/web/status')
 def web_status():
     return webUI

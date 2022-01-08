@@ -7,6 +7,7 @@ class Database:
         self.path = path
         self.collections = {}
         self.load()
+
         for file in os.listdir(self.path):
             if file.endswith(".json"):
                 self.collections[file[:-5]] = Collection(file[:-5], self.path) 
@@ -44,9 +45,13 @@ class Database:
     def removeall_from_collection(self,name):
         self.collections[name].removeall()
     
-    def search_in_collection(self, name, search):
-        return [item for item in self.collections[name].data if search in item]
+    def keysearch(self,name,key):
+        return self.collections[name].keysearch(key)
+
     
+    def search(self,name,key,value):
+        return self.collections[name].search(key,value)
+
     def save(self):
         for collection in self.collections:
             self.collections[collection].save()

@@ -1,5 +1,8 @@
 import json
 import os
+import ast
+
+from requests.api import delete
 
 class Collection:
     def __init__(self, name,path):
@@ -21,7 +24,7 @@ class Collection:
             json.dump(self.data, f)
     
     def add(self, item):
-        self.data.append(item)
+        self.data.append(ast.literal_eval(item))
     
     def remove(self, item):
         try:
@@ -35,8 +38,26 @@ class Collection:
     def data(self):
         return self.data
 
+    def delete(self,key,value):
+        for i in self.data:
+            if i[key] == value:
+                self.data.remove(i)
+                return "deleted"
+        return "not found"
+
     def __len__(self):
         return len(self.data)
     
     def removeall(self):
         self.data = []
+
+    def keysearch(self,key):
+        for i in self.data:
+            if key in i.keys():
+                return i
+    
+    def search(self,key,value):
+        for i in self.data:
+            if i[key] == value:
+                return i
+        return "not found"

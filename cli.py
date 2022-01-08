@@ -1,17 +1,23 @@
 from core import *
 from config import *
 import pwinput
+import json
+from core import collection
+
+from src import valuesearch
+from config import version
 
 database = Database(config['path'])
 
 global LOGGED
 LOGGED = False
 
+
+
 kum = []
-commands = ["CREATE", "GET", "GETD", "LOAD", "DELETE", "INSERT", "REMOVE", "SAVE", "BURN"]
 
 try:
-    print("CrispyDB CLI, v1.0-testing")
+    print("CrispyDB CLI, version {}".format(version))
     print("\t By Suvid Datta")
     print("Use \"help\" to learn more\n")
     print("PLEASE LOG IN FIRST!\n")
@@ -50,9 +56,13 @@ try:
                             database.remove_from_collection(kum[1], kum[i])
                         print("DONE")
                     elif command == "SAVE".lower():
-                        database.saveCollection(kum[1])
+                        database.save()
                     elif command == "BURN".lower():
                         database.removeall_from_collection(kum[1])
+                    elif command == "KEYSEARCH".lower():
+                        print(database.keysearch(kum[1], kum[2]))
+                    elif command == "SEARCH".lower():
+                        print(database.search(kum[1], kum[2], kum[3]))
                     elif command == "HELP".lower():
                         print("""
                         CREATE [collection]
@@ -65,23 +75,32 @@ try:
                         SAVE [collection]
                         BURN [collection]
                         HELP
+                        KEYSEARCH [collection] [key]
+                        SEARCH [collection] [key] [value]
                         """)
                     elif command == "EXIT".lower():
+                        Database.save(database)
                         print("bye")
                         quit()
                     else:
                         print(command, " not found")
                 except:
                     print("oh no, we ran into a problem, try again!")
+                    # print the issue
+                    print(sys.exc_info()[0])
+                    #print the cause of issue
+                    print(sys.exc_info()[1])
                 kum = []
         else:
             print("wrong password")
     else:
         print("wrong username")
 except KeyboardInterrupt:
+    database.save()
     print("bye")
     quit()
 except EOFError:
+    database.save()
     print("bye")
     quit()
 
