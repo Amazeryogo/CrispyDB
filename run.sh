@@ -1,9 +1,8 @@
 pip3 install -r requirements.txt
-# copy .config/config.json to a safe location and then move it back after a reset
-git checkout master
-git branch new-branch-to-save-current-commits
-git fetch --all
-git reset --hard origin/master
+git stash
+git pull
+git stash 
+echo 'do remember to get the latest version of the code whenever possible'
 if [ -z "$1" ]; then
     python3 main.py
 else

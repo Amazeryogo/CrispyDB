@@ -12,8 +12,6 @@ database = Database(config['path'])
 global LOGGED
 LOGGED = False
 
-
-
 kum = []
 
 try:
