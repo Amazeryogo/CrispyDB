@@ -15,5 +15,4 @@
     "admin password": "admin",
     "webUI": true,
     "open_browser": true,
-    "save_limit": 4
 }
