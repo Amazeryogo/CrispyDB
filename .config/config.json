@@ -14,5 +14,5 @@
     "admin name": "admin",
     "admin password": "admin",
     "webUI": true,
-    "open_browser": true,
+    "open_browser": true
 }
