@@ -36,8 +36,7 @@ print(requests.post('http://127.0.0.1:5000/save',auth=('admin','admin')).text)
 ```
 
 
-**WE HAVE A PYTHON LIBRARY FOR THIS DB**
-https://pypi.org/project/crispylib/1.0.0/#description
+
 
 [For some tweaking or changes, try seeing config/config.json]('https://github.com/Amazeryogo/CrispyDB/blob/main/config/config.json)
 
