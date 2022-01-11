@@ -6,15 +6,15 @@ from core import collection
 
 from config import version
 
-global current_db
-current_db = ""
+global current_col
+current_col = ""
 
 database = Database(config['path'])
 
 global LOGGED
 LOGGED = False
 
-kum = []
+query = []
 
 try:
     print("CrispyDB CLI, version {}".format(version))
@@ -29,41 +29,41 @@ try:
             while True:
                 x = input(">>")
                 for word in x.split(' '):
-                    kum.append(word)
-                command = kum[0]
+                    query.append(word)
+                command = query[0]
                 try:
                     if command == "CREATE" or "CREATE".lower():
-                        database.createCollection(kum[1])
+                        database.createCollection(query[1])
                         print("DONE")
                     elif command == "GET" or "GET".lower():
                         p = database.get_collections()
                         for i in p:
                             print(i)
                     elif command == "GETD" or "GETD".lower():
-                        print(database.get_collection_data(current_db))
+                        print(database.get_collection_data(current_col))
                     elif command == "LOAD" or "LOAD".lower():
-                        database.loadCollection(current_db)
+                        database.loadCollection(current_col)
                         print("DONE")
                     elif command == "DELETE" or "DELETE".lower():
-                        database.deleteCollection(current_db)
-                        current_db = ""
+                        database.deleteCollection(current_col)
+                        current_col = ""
                         print("DONE")
                     elif command == "INSERT" or "INSERT".lower():
-                        for i in range(1, len(kum)):
-                            database.add_to_collection(current_db, kum[i])
+                        for i in range(1, len(query)):
+                            database.add_to_collection(current_col, query[i])
                         print("DONE")
                     elif command == "REMOVE" or "REMOVE".lower():
-                        for i in range(1, len(kum)):
-                            database.remove_from_collection(current_db, kum[i])
+                        for i in range(1, len(query)):
+                            database.remove_from_collection(current_col, query[i])
                         print("DONE")
                     elif command == "SAVE" or "SAVE".lower():
                         database.save()
                     elif command == "BURN" or "BURN".lower():
-                        database.removeall_from_collection(current_db)
+                        database.removeall_from_collection(current_col)
                     elif command == "KEYSEARCH" or "KEYSEARCH".lower():
-                        print(database.keysearch(current_db, kum[1]))
+                        print(database.keysearch(current_col, query[1]))
                     elif command == "SEARCH" or "SEARCH".lower():
-                        print(database.search(current_db, kum[1], kum[2]))
+                        print(database.search(current_col, query[1], query[2]))
                     elif command == "HELP" or "HELP".lower():
                         print("""
                         CREATE <collection_name>
@@ -81,25 +81,23 @@ try:
                         SETCOL <collection_name>
                         """)
                     elif command == "SETCOL" or "SETCOL".lower():
-                        current_db = kum[1]
+                        current_col = query[1]
                     elif command == "EXIT" or "EXIT".lower():
                         Database.save(database)
                         print("bye")
                         quit()
                     elif command == "DB" or "DB".lower():
-                        print(current_db)
+                        print(current_col)
                     else:
                         print(command, " not found")
                 except:
-                    if current_db == "":
-                        print("please set a collection using setcol") 
+                    if current_col == "":
+                        print("please set a collection using setcol")
                     else:
                         print("oh no, we ran into a problem, try again!")
                         # print the issue
                         print(sys.exc_info()[0])
-                        #print the cause of issue
-                        print(sys.exc_info()[1])
-                kum = []
+                query = []
         else:
             print("wrong password")
     else:
@@ -112,4 +110,3 @@ except EOFError:
     database.save()
     print("bye")
     quit()
-

@@ -4,3 +4,4 @@ Flask_Limiter==2.0.3
 Flask_WTF==0.15.1
 requests==2.25.1
 WTForms==2.3.3
+pwinput==1.0.1

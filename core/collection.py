@@ -56,8 +56,8 @@ class Collection:
             if key in i.keys():
                 return i
     
-    def search(self,key,value):
+    def search(self,data):
         for i in self.data:
-            if i[key] == value:
+            if data in i.values():
                 return i
         return "not found"

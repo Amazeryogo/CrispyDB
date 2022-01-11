@@ -49,8 +49,8 @@ class Database:
         return self.collections[name].keysearch(key)
 
     
-    def search(self,name,key,value):
-        return self.collections[name].search(key,value)
+    def search(self,name,data):
+        return self.collections[name].search(data)
 
     def save(self):
         for collection in self.collections:

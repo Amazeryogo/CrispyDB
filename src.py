@@ -1,11 +1,7 @@
-import threading
-from time import time
 from flask import *
 from core import *
 from config import *
-from core import database
 from forms import *
-from threading import *
 
 
 SECRET_KEY = os.urandom(32)
@@ -16,9 +12,7 @@ LOGGED = False
 global LOGGED_IP
 LOGGED_IP = ""
 
-
 Database = Database(config['path'])
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -29,12 +23,10 @@ limiter = Limiter(
 )
 
 
-
-
 @app.route('/')
 def index():
     if config['hide_config'] == True:
-        return "CrispyDB is running,{}".format(version) 
+        return "CrispyDB is running,{}".format(version)
     else:
         if config['environment'] == 'production':
             return "SECURITY ERROR, ADMIN, PLEASE CHECK  THE LOGS"
@@ -42,7 +34,7 @@ def index():
             return config
 
 
-@app.route('/create/<collection>', methods=['GET','POST'])
+@app.route('/create/<collection>', methods=['GET', 'POST'])
 @limiter.limit(ccpm)
 def create(collection):
     auth = request.authorization
@@ -58,7 +50,8 @@ def create(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/load/<collection>', methods=['GET','POST'])
+
+@app.route('/load/<collection>', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def load(collection):
     auth = request.authorization
@@ -73,7 +66,8 @@ def load(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/save', methods=['GET','POST'])
+
+@app.route('/save', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def save():
     auth = request.authorization
@@ -86,7 +80,8 @@ def save():
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/add/<collection>', methods=['GET','POST'])
+
+@app.route('/add/<collection>', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def add(collection):
     auth = request.authorization
@@ -103,7 +98,8 @@ def add(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/remove/<collection>', methods=['GET','POST'])
+
+@app.route('/remove/<collection>', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def remove(collection):
     auth = request.authorization
@@ -120,7 +116,8 @@ def remove(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/delete/<collection>', methods=['GET','POST'])
+
+@app.route('/delete/<collection>', methods=['GET', 'POST'])
 @limiter.limit(cdpm)
 def delete(collection):
     auth = request.authorization
@@ -136,7 +133,8 @@ def delete(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/keysearch/<collection>', methods=['GET','POST'])
+
+@app.route('/keysearch/<collection>', methods=['GET', 'POST'])
 def keysearch(collection):
     auth = request.authorization
     if auth:
@@ -151,22 +149,7 @@ def keysearch(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/valuesearch/<collection>', methods=['GET','POST'])
-def valuesearch(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            data = request.get_json()
-            return json.dumps(Database.valuesearch(collection, data))
-        else:
-            return json.dumps({'error': 'Invalid credentials'})
-    else:
-        return json.dumps({'error': 'Unauthorized'})
-
-@app.route('/search/<collection>', methods=['GET','POST'])
+@app.route('/search/<collection>', methods=['GET', 'POST'])
 def search(collection):
     auth = request.authorization
     if auth:
@@ -180,16 +163,19 @@ def search(collection):
             return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
-        
+
+
 @app.route('/web/status')
 def web_status():
     return webUI
+
 
 @app.route('/web')
 def web():
     return render_template('Intro.html')
 
-@app.route('/web/login', methods=['GET','POST'])
+
+@app.route('/web/login', methods=['GET', 'POST'])
 @limiter.exempt
 def web_login():
     if webUI == True:
@@ -204,11 +190,12 @@ def web_login():
             else:
                 print(Fore.BLUE + "ERROR")
 
-        return render_template('login.html', form=form,name=name)
+        return render_template('login.html', form=form, name=name)
     else:
         return "WebUI is off"
 
-@app.route('/web/dashboard', methods=['GET','POST'])
+
+@app.route('/web/dashboard', methods=['GET', 'POST'])
 def web_dashboard():
     newcollection = NewCollectionForm()
     if webUI == True:
@@ -223,13 +210,14 @@ def web_dashboard():
                 else:
                     return "Collection already exists"
             collections = Database.collections
-            return render_template('index.html',collections=collections,nform=newcollection,name=name)
+            return render_template('index.html', collections=collections, nform=newcollection, name=name)
         else:
             return redirect(url_for('web_login'))
     else:
         return "WebUI is off"
 
-@app.route('/web/collections/<collection>', methods=['GET','POST'])
+
+@app.route('/web/collections/<collection>', methods=['GET', 'POST'])
 def web_collections(collection):
     if webUI == True:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
@@ -250,15 +238,14 @@ def web_collections(collection):
                         Database.removeall_from_collection(collection)
                 # get the data in collection
                 data = Database.loadCollection(collection)
-                return render_template('collection.html',collection=collection,data=data,form=form)
+                return render_template('collection.html', collection=collection, data=data, form=form)
         else:
             return redirect(url_for('web_login'))
     else:
         return "WebUI is off"
 
 
-
-@app.route('/getdata/<collection>', methods=['GET','POST'])
+@app.route('/getdata/<collection>', methods=['GET', 'POST'])
 def getdata(collection):
     if webUI == True:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
@@ -266,7 +253,7 @@ def getdata(collection):
                 return "Collection does not exist"
             else:
                 x = str(Database.loadCollection(collection))
-                return x  
+                return x
         else:
             return redirect(url_for('web_login'))
     else:
@@ -280,4 +267,16 @@ def web_logout():
     LOGGED_IP = None
     return redirect(url_for('web_login'))
 
-
+@app.route('/web/collections/<collection>/<data>', methods=['GET', 'POST'])
+def web_delete(collection, data):
+    if webUI == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
+            if collection not in Database.collections:
+                return "Collection does not exist"
+            else:
+                Database.remove_from_collection(collection, data)
+                return redirect(url_for('web_collections', collection=collection))
+        else:
+            return redirect(url_for('web_login'))
+    else:
+        return "WebUI is off"
