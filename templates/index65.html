@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{name}}: Dashboard</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <script type="text/javascript">
+        var i = 0;
+            function change() {
+                var doc = document.getElementById("background");
+                var color = ["black", "blue", "brown", "green"];
+                doc.style.backgroundColor = color[i];
+                i = (i + 1) % color.length;
+            }
+            setInterval(change, 1000);
+    </script>
+</head>
+<body>
+    <!--Idk show some stuff-->
+    <!--Add a div with logout and stuff like that-->
+    <div style="border: 1px solid aqua; padding: 35px;">
+            <h3><a href="/web/logout">Logout</a></h3>      
+    </div>
+    <h1 style="text-align: center; color: aquamarine;">{{name}}: Dashboard</h1>
+    {% for collection in collections %}
+    <div style="border: 1px solid black; padding: 35px;">
+    <h2>{{collection}}</h2>
+    <a href="/web/collections/{{collection}}"><button style="background-color: blueviolet; color: white;"> More about {{collection}}</button></a>
+    </div>
+    {% endfor %}
+    <form method="POST" action="/web/dashboard">
+        {{nform.csrf_token}}
+        <br/>
+        <h3>{{nform.name.label}}</h3>
+        {{nform.name()}}
+        <br/>
+        {{nform.submit()}}
+    </form>
+    <br/>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</body>
+</html>

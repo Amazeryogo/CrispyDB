@@ -1,48 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{name}}: Dashboard</title>
-    <link rel="stylesheet" href="/static/main.css">
-    <script type="text/javascript">
-        var i = 0;
-            function change() {
-                var doc = document.getElementById("background");
-                var color = ["black", "blue", "brown", "green"];
-                doc.style.backgroundColor = color[i];
-                i = (i + 1) % color.length;
-            }
-            setInterval(change, 1000);
-    </script>
-</head>
-<body>
-    <!--Idk show some stuff-->
-    <!--Add a div with logout and stuff like that-->
-    <div style="border: 1px solid aqua; padding: 35px;">
-            <h3><a href="/web/logout">Logout</a></h3>      
-    </div>
-    <h1 style="text-align: center; color: aquamarine;">{{name}}: Dashboard</h1>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Dashboard</title>
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand " href="/web/logout">Logout</a>
+    </nav>
+
+  <h1 style="text-align:center">Dashboard</h1>
     {% for collection in collections %}
-    <div style="border: 1px solid black; padding: 35px;">
-    <h2>{{collection}}</h2>
-    <a href="/web/collections/{{collection}}"><button style="background-color: blueviolet; color: white;"> More about {{collection}}</button></a>
-    </div>
+  <div class="col-md-4" style="width:800px; margin:0 auto;">
+    <ul class="list-group">
+    <a href="/web/collections/{{collection}}"><li class="list-group-item active">{{collection}}</li></a>
+    </ul>
+  </div>
     {% endfor %}
-    <form method="POST" action="/web/dashboard">
-        {{nform.csrf_token}}
-        <br/>
-        <h3>{{nform.name.label}}</h3>
-        {{nform.name()}}
-        <br/>
-        {{nform.submit()}}
-    </form>
-    <br/>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-</body>
+
+  <br/>
+  <br/>
+  {% import 'bootstrap/wtf.html' as wtf %}
+  <form method="POST" action="/web/dashboard">
+            <div class="col-md-4" style="width:800px; margin:0 auto;">
+              {{ wtf.quick_form(nform)}}
+            </div>
+  </form>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>

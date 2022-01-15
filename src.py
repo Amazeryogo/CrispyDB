@@ -2,7 +2,7 @@ from flask import *
 from core import *
 from config import *
 from forms import *
-
+from flask_bootstrap import Bootstrap
 
 SECRET_KEY = os.urandom(32)
 
@@ -16,6 +16,7 @@ Database = Database(config['path'])
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
+bootstrap = Bootstrap(app)
 limiter = Limiter(
     app,
     key_func=get_remote_address,

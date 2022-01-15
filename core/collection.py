@@ -4,12 +4,14 @@ import ast
 
 from requests.api import delete
 
+
 class Collection:
-    def __init__(self, name,path):
+    def __init__(self, name, path):
         self.name = name
         self.path = path + "/" + name + ".json"
         self.data = []
         self.load()
+
     def load(self):
         if os.path.isfile(self.path):
             with open(self.path, "r") as f:
@@ -18,14 +20,14 @@ class Collection:
             self.save()
 
         return self.data
-    
+
     def save(self):
         with open(self.path, "w") as f:
             json.dump(self.data, f)
-    
+
     def add(self, item):
         self.data.append(ast.literal_eval(item))
-    
+
     def remove(self, item):
         try:
             self.data.remove(item)
@@ -34,11 +36,11 @@ class Collection:
 
     def __iter__(self):
         return iter(self.data)
-    
+
     def data(self):
         return self.data
 
-    def delete(self,key,value):
+    def delete(self, key, value):
         for i in self.data:
             if i[key] == value:
                 self.data.remove(i)
@@ -47,16 +49,16 @@ class Collection:
 
     def __len__(self):
         return len(self.data)
-    
+
     def removeall(self):
         self.data = []
 
-    def keysearch(self,key):
+    def keysearch(self, key):
         for i in self.data:
             if key in i.keys():
                 return i
-    
-    def search(self,data):
+
+    def search(self, data):
         for i in self.data:
             if data in i.values():
                 return i

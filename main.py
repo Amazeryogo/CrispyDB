@@ -3,8 +3,6 @@ from src import *
 import webbrowser
 
 try:
-    print(Back.WHITE)
-
     if config['environment'] != 'production' and config['environment'] != 'development':
         print(Fore.BLUE + '[ERROR] Environment not set correctly')
         sys.exit(1)
