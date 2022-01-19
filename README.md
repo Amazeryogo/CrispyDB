@@ -14,16 +14,22 @@ It uses the following libraries:
 flask
 os
 json
-requests
 jinja
+```
+And the additional libraries:
+```
+bootstrap
+requests
 flask limiter
 flask WTF forms
 ```
 
 
+
 Here is a sample script to test the DB
 ```python
 #python
+import requests
 print(requests.post('http://127.0.0.1:5000/create/hmmm',auth=('admin','admin')).text)
 print(requests.post('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)    
 print(requests.post('http://127.0.0.1:5000/add/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
