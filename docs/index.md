@@ -14,16 +14,22 @@ It uses the following libraries:
 flask
 os
 json
-requests
 jinja
+```
+And the additional libraries:
+```
+bootstrap
+requests
 flask limiter
 flask WTF forms
 ```
 
 
+
 Here is a sample script to test the DB
 ```python
 #python
+import requests
 print(requests.post('http://127.0.0.1:5000/create/hmmm',auth=('admin','admin')).text)
 print(requests.post('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)    
 print(requests.post('http://127.0.0.1:5000/add/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
@@ -36,8 +42,7 @@ print(requests.post('http://127.0.0.1:5000/save',auth=('admin','admin')).text)
 ```
 
 
-**WE HAVE A PYTHON LIBRARY FOR THIS DB**
-https://pypi.org/project/crispylib/1.0.0/#description
+
 
 [For some tweaking or changes, try seeing config/config.json]('https://github.com/Amazeryogo/CrispyDB/blob/main/config/config.json)
 
@@ -82,13 +87,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-WARNING:
-DONT EVER RUN 
-```shell
-$ bash run.sh nevergonna
-```
-OR
-```bash
-$ python3 cryaboutit.py
-```
-THANK YOU

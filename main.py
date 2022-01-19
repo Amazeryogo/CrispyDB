@@ -17,9 +17,7 @@ try:
         print(Fore.BLUE + "WebUI is off ")
 
     if config['hide_config'] != True and config['environment'] == 'production':
-        print(Fore.BLUE + "WARNING: CONFIG IS NOT HIDDEN")
-        print(Fore.BLUE + "CHANGE IMMEDIATELY")
-        print(Fore.BLUE + "THIS IS A SECURITY RISK IN PRODUCTION, CHANGE IT IN THE config/config.json FILE")
+        print(Fore.BLUE + "Config is not hidden in production mode")
     else:
         print(Fore.BLUE + "CONFIG IS HIDDEN")
 
@@ -29,6 +27,7 @@ try:
 
     logging.basicConfig(filename="DB.log", level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
     app.run(host=HOST, port=PORT, debug=config['DEBUG'])
+
 except KeyboardInterrupt:
     print(Fore.RED + "KeyboardInterrupt")
     Database.save()

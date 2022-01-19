@@ -11,7 +11,7 @@ database = Database(config['path'])
 global LOGGED
 LOGGED = False
 
-kum = []
+commandslist = []
 
 try:
     print("CrispyDB CLI, version {}".format(version))
@@ -26,40 +26,40 @@ try:
             while True:
                 x = input(">>")
                 for word in x.split(' '):
-                    kum.append(word)
-                command = kum[0]
+                    commandslist.append(word)
+                command = commandslist[0]
                 try:
                     if command == "CREATE".lower():
-                        database.createCollection(kum[1])
+                        database.createCollection(commandslist[1])
                         print("DONE")
                     elif command == "GET".lower():
                         p = database.get_collections()
                         for i in p:
                             print(i)
                     elif command == "GETD".lower():
-                        print(database.get_collection_data(kum[1]))
+                        print(database.get_collection_data(commandslist[1]))
                     elif command == "LOAD".lower():
-                        database.loadCollection(kum[1])
+                        database.loadCollection(commandslist[1])
                         print("DONE")
                     elif command == "DELETE".lower():
-                        database.deleteCollection(kum[1])
+                        database.deleteCollection(commandslist[1])
                         print("DONE")
                     elif command == "INSERT".lower():
-                        for i in range(2, len(kum)):
-                            database.add_to_collection(kum[1], kum[i])
+                        for i in range(2, len(commandslist)):
+                            database.add_to_collection(commandslist[1], commandslist[i])
                         print("DONE")
                     elif command == "REMOVE".lower():
-                        for i in range(2, len(kum)):
-                            database.remove_from_collection(kum[1], kum[i])
+                        for i in range(2, len(commandslist)):
+                            database.remove_from_collection(commandslist[1], commandslist[i])
                         print("DONE")
                     elif command == "SAVE".lower():
                         database.save()
                     elif command == "BURN".lower():
-                        database.removeall_from_collection(kum[1])
+                        database.removeall_from_collection(commandslist[1])
                     elif command == "KEYSEARCH".lower():
-                        print(database.keysearch(kum[1], kum[2]))
+                        print(database.keysearch(commandslist[1], commandslist[2]))
                     elif command == "SEARCH".lower():
-                        print(database.search(kum[1], kum[2]))
+                        print(database.search(commandslist[1], commandslist[2]))
                     elif command == "HELP".lower():
                         print("""
                         CREATE [collection]
@@ -84,10 +84,8 @@ try:
                 except:
                     print("oh no, we ran into a problem, try again!")
                     # print the issue
-                    print(sys.exc_info()[0])
-                    #print the cause of issue
-                    print(sys.exc_info()[1])
-                kum = []
+                    print(sys.exc_info())
+                commandslist = []
         else:
             print("wrong password")
     else:
