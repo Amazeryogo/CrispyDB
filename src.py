@@ -246,7 +246,7 @@ def web_collections(collection):
         return "WebUI is off"
 
 
-@app.route('/getdata/<collection>', methods=['GET', 'POST'])
+@app.route('/getdata/<collection>', methods=['GET'])
 def getdata(collection):
     if webUI == True:
         if LOGGED == True and LOGGED_IP == request.remote_addr:

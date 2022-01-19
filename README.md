@@ -1,71 +1,55 @@
 # CrispyDB
-A database for my projects.
+CrispyDB is a simple database for storing and retrieving data designed to be used in applications that don't require a huge and feature-rich database.
 
-In a nutshell, its an API that uses the json library to read and write data in json files.
-<br/>
-*It does have a webUI currently under development*
-
-The WebUI is really janky and still in development.
-<br/>
-*Also dont expect the WebUI to be very fancy like the dashboard for kubernetes*
-
-It uses the following libraries:
-```
-flask
-os
-json
-jinja
-```
-And the additional libraries:
-```
-bootstrap
-requests
-flask limiter
-flask WTF forms
-```
+## Features
+* Uses Json to store data
+* Uses GET and POST requests to store and retrieve data instead of queries
+* Has a simple and intuitive CLI
+* Has a fancy GUI web interface called WebUI
 
 
 
-Here is a sample script to test the DB
-```python
-#python
-import requests
-print(requests.post('http://127.0.0.1:5000/create/hmmm',auth=('admin','admin')).text)
-print(requests.post('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)    
-print(requests.post('http://127.0.0.1:5000/add/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
-print(requests.post('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
-print(requests.post('http://127.0.0.1:5000/remove/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
-print(requests.post('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
-print(requests.post('http://127.0.0.1:5000/delete/hmmm',auth=('admin','admin')).text)
-# Usually, we have a list to keep all your json in memory, if you want to save your data, you must send a request to /save
-print(requests.post('http://127.0.0.1:5000/save',auth=('admin','admin')).text)
-```
+### It uses the following libraries:
+* Flask
+* OS
+* JSON
+* Jinja
+* Bootstrap
+* Requests
+* Flask limiter
+* Flask WTF forms
 
 
 
-
-[For some tweaking or changes, try seeing config/config.json]('https://github.com/Amazeryogo/CrispyDB/blob/main/config/config.json)
-
-### How to run the database
-
-To run it... just run the bash script
+## How to run the database
 ```shell
+$ git clone https://github.com/Amazeryogo/CrispyDB
+$ cd CrispyDB
+$ nano config/.config.json # change the settings
+# now for the web server
 $ bash run.sh
-```
-
-To run the cli
-```shell
+# for the cli
 $ bash run.sh cli
 ```
 
 
 
-
-## I hope this project is helpful, if it isnt..... well you should use MongoDB instead.
-
-
-The LICENSE
-```MIT License
+## Here is a sample script to test the DB
+```python
+import requests
+print(requests.post('http://127.0.0.1:5000/create/hmmm',auth=('admin','admin')).text)
+print(requests.get('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
+print(requests.post('http://127.0.0.1:5000/add/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
+print(requests.get('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
+print(requests.post('http://127.0.0.1:5000/remove/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
+print(requests.get('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
+print(requests.post('http://127.0.0.1:5000/delete/hmmm',auth=('admin','admin')).text)
+# Usually, we have a list to keep all your json in memory, if you want to save your data, you must send a request to /save
+print(requests.post('http://127.0.0.1:5000/save',auth=('admin','admin')).text)
+```
+### The License
+```
+MIT License
 
 Copyright (c) 2021 Suvid Datta
 
