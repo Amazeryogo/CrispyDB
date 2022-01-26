@@ -187,7 +187,7 @@ def web_login():
                 LOGGED_IP = request.remote_addr
                 return redirect(url_for('web_dashboard'))
             else:
-                print(Fore.BLUE + "ERROR")
+                print("ERROR")
 
         return render_template('login.html', form=form, name=name)
     else:
