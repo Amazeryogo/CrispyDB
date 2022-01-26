@@ -26,6 +26,8 @@ CrispyDB is a simple database for storing and retrieving data designed to be use
 $ git clone https://github.com/Amazeryogo/CrispyDB
 $ cd CrispyDB
 $ nano config/.config.json # change the settings
+# for installing the requirements
+$ bash run.sh install
 # now for the web server
 $ bash run.sh
 # for the cli

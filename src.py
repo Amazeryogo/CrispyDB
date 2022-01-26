@@ -26,13 +26,7 @@ limiter = Limiter(
 
 @app.route('/')
 def index():
-    if config['hide_config'] == True:
-        return "CrispyDB is running,{}".format(version)
-    else:
-        if config['environment'] == 'production':
-            return "SECURITY ERROR, ADMIN, PLEASE CHECK  THE LOGS"
-        else:
-            return config
+    return config['name'] + " v" + config['version']
 
 
 @app.route('/create/<collection>', methods=['GET', 'POST'])
@@ -92,7 +86,7 @@ def add(collection):
                 return json.dumps({'error': 'Collection does not exist'})
 
             data = request.get_json()
-            Database.add_to_collection(collection, data)
+            Database.addToCollection(collection, data)
             return json.dumps({'success': 'Item added'})
         else:
             return json.dumps({'error': 'Invalid credentials'})
@@ -110,7 +104,7 @@ def remove(collection):
                 return json.dumps({'error': 'Collection does not exist'})
 
             data = request.get_json()
-            Database.remove_from_collection(collection, data)
+            Database.removeFromCollection(collection, data)
             return json.dumps({'success': 'Data removed'})
         else:
             return json.dumps({'error': 'Invalid credentials'})
@@ -149,6 +143,7 @@ def keysearch(collection):
             return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
+
 
 @app.route('/search/<collection>', methods=['GET', 'POST'])
 def search(collection):
@@ -225,21 +220,8 @@ def web_collections(collection):
             if collection not in Database.collections:
                 return "Collection does not exist"
             else:
-                form = AddDataForm()
-                if form.validate_on_submit():
-                    if form.data.data == "@#(*$$":
-                        Database.removeall_from_collection(collection)
-                    if form.data.data != "  ":
-                        if form.data.data == '':
-                            pass
-                        else:
-                            Database.add_to_collection(collection, form.data.data)
-                            return redirect(url_for('web_collections', collection=collection))
-                    else:
-                        Database.removeall_from_collection(collection)
-                # get the data in collection
                 data = Database.loadCollection(collection)
-                return render_template('collection.html', collection=collection, data=data, form=form)
+                return render_template('collection.html', collection=collection, data=data)
         else:
             return redirect(url_for('web_login'))
     else:
@@ -268,6 +250,7 @@ def web_logout():
     LOGGED_IP = None
     return redirect(url_for('web_login'))
 
+
 @app.route('/web/collections/<collection>/<data>', methods=['GET', 'POST'])
 def web_delete(collection, data):
     if webUI == True:
@@ -275,9 +258,22 @@ def web_delete(collection, data):
             if collection not in Database.collections:
                 return "Collection does not exist"
             else:
-                Database.remove_from_collection(collection, data)
+                Database.removeFromCollection(collection, data)
                 return redirect(url_for('web_collections', collection=collection))
         else:
             return redirect(url_for('web_login'))
     else:
         return "WebUI is off"
+
+
+@app.route('/web/delete/<collection>', methods=['GET', 'POST'])
+def web_delete_collection(collection):
+    if webUI == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
+            if collection not in Database.collections:
+                return "Collection does not exist"
+            else:
+                Database.deleteCollection(collection)
+                return redirect(url_for('web_dashboard'))
+        else:
+            return redirect(url_for('web_login'))

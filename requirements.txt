@@ -1,7 +1,9 @@
-colorama==0.4.4
-Flask==2.0.0
-Flask_Limiter==2.0.3
-Flask_WTF==0.15.1
-requests==2.25.1
-WTForms==2.3.3
-pwinput==1.0.1
+colorama
+Flask
+Flask_Limiter
+Flask_WTF
+requests
+WTForms
+pwinput
+waitress
+flask_bootstrap

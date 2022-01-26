@@ -33,11 +33,11 @@ try:
                         database.createCollection(commandslist[1])
                         print("DONE")
                     elif command == "GET".lower():
-                        p = database.get_collections()
+                        p = database.getCollections()
                         for i in p:
                             print(i)
                     elif command == "GETD".lower():
-                        print(database.get_collection_data(commandslist[1]))
+                        print(database.getCollectionData(commandslist[1]))
                     elif command == "LOAD".lower():
                         database.loadCollection(commandslist[1])
                         print("DONE")
@@ -46,16 +46,16 @@ try:
                         print("DONE")
                     elif command == "INSERT".lower():
                         for i in range(2, len(commandslist)):
-                            database.add_to_collection(commandslist[1], commandslist[i])
+                            database.addToCollection(commandslist[1], commandslist[i])
                         print("DONE")
                     elif command == "REMOVE".lower():
                         for i in range(2, len(commandslist)):
-                            database.remove_from_collection(commandslist[1], commandslist[i])
+                            database.removeFromCollection(commandslist[1], commandslist[i])
                         print("DONE")
                     elif command == "SAVE".lower():
                         database.save()
                     elif command == "BURN".lower():
-                        database.removeall_from_collection(commandslist[1])
+                        database.removeAllFromCollection(commandslist[1])
                     elif command == "KEYSEARCH".lower():
                         print(database.keysearch(commandslist[1], commandslist[2]))
                     elif command == "SEARCH".lower():
@@ -76,15 +76,16 @@ try:
                         SEARCH [collection] [data]
                         """)
                     elif command == "EXIT".lower():
-                        Database.save(database)
+                        database.save()
                         print("bye")
                         quit()
                     else:
                         print(command, " not found")
                 except:
-                    print("oh no, we ran into a problem, try again!")
-                    # print the issue
-                    print(sys.exc_info())
+                    if ValueError:
+                        print("ok")
+                    else:
+                        print("oh no, we ran into a problem, try again!")
                 commandslist = []
         else:
             print("wrong password")

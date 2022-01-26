@@ -8,16 +8,13 @@ import os
 from colorama import Fore, Back, Style
 
 
-with open('.config/config.json', 'r') as f:
+with open('config/config.json', 'r') as f:
     config = json.load(f)
 # request per minute
-rpm = str(config['rpm']) + ' per minute'
-#collection creation per minute
-ccpm = str(config['ccpm']) + ' per minute'
-# collection deletion per minute
-cdpm = str(config['cdpm']) + ' per minute'
+rpm = str(config['RequestsPerMinute']) + ' per minute'
+ccpm = str(config['CollectionCreationPerMinute']) + ' per minute'
+cdpm = str(config['CollectionDeletionPerMinute']) + ' per minute'
 version = config['version']
-python_version = config['python version']
 PORT = config['port']
 HOST = config['host']
 USERNAME = config['admin name']

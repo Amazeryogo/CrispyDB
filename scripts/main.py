@@ -14,5 +14,6 @@ print(requests.get('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).
 print(requests.post('http://127.0.0.1:5000/delete/hmmm',auth=('admin','admin')).text)
 # deletes the collection hmmm
 
-# Usually, we have a list to keep all your json in memory, if you want to save your data, you must send a request to /save
+# Usually, we have a list to keep all your json in memory, if you want to save your data, you must send a request to
+# /save
 print(requests.post('http://127.0.0.1:5000/save',auth=('admin','admin')).text)

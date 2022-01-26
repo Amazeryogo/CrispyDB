@@ -1,13 +1,12 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm as Form
 from wtforms import TextField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField, PasswordField
 from wtforms import validators, ValidationError
 
-Form = FlaskForm
 
 
 class LoginForm(Form):
-    username = TextField('Username')
-    password = PasswordField('Password')
+    username = TextField('Username', [validators.Required()])
+    password = PasswordField('Password', [validators.Required()])
     submit = SubmitField('Login')
 
 
@@ -16,10 +15,3 @@ class NewCollectionForm(Form):
     submit = SubmitField('Create')
 
 
-class DeleteCollectionForm(Form):
-    submit = SubmitField('Delete')
-
-
-class AddDataForm(Form):
-    data = TextAreaField('data')
-    submit = SubmitField('Add')

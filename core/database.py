@@ -19,11 +19,12 @@ class Database:
     
     def createCollection(self, name):
         self.collections[name] = Collection(name, self.path)
+
     
-    def get_collections(self):
+    def getCollections(self):
         return list(self.collections.keys())
     
-    def get_collection_data(self, name):
+    def getCollectionData(self, name):
         return self.collections[name].data
     
     def loadCollection(self, name):
@@ -33,16 +34,16 @@ class Database:
         del self.collections[name]
         os.remove(self.path + "/" + name + ".json")
     
-    def add_to_collection(self, collection, item):
+    def addToCollection(self, collection, item):
         self.collections[collection].add(item)
     
-    def remove_from_collection(self, name, item):
+    def removeFromCollection(self, name, item):
         self.collections[name].remove(item)
 
     def saveCollection(self, name):
         self.collections[name].save()
     
-    def removeall_from_collection(self,name):
+    def removeAllFromCollection(self,name):
         self.collections[name].removeall()
     
     def keysearch(self,name,key):
