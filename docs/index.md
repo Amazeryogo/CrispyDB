@@ -26,6 +26,8 @@ CrispyDB is a simple database for storing and retrieving data designed to be use
 $ git clone https://github.com/Amazeryogo/CrispyDB
 $ cd CrispyDB
 $ nano config/.config.json # change the settings
+# for installing the requirements
+$ bash run.sh install
 # now for the web server
 $ bash run.sh
 # for the cli
@@ -34,7 +36,7 @@ $ bash run.sh cli
 
 
 
-## Here is a simple example of how to use the database
+## Here is a simple example of how to use CrispyDB
 ```python
 import requests
 print(requests.post('http://127.0.0.1:5000/create/hmmm',auth=('admin','admin')).text)
