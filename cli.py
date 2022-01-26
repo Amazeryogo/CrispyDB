@@ -1,10 +1,8 @@
 from core import *
 from config import *
 import pwinput
-import json
-from core import collection
-
 from config import version
+
 
 database = Database(config['path'])
 

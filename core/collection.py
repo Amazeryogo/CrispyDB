@@ -1,8 +1,5 @@
 import json
 import os
-import ast
-
-from requests.api import delete
 
 
 class Collection:
@@ -26,19 +23,13 @@ class Collection:
             json.dump(self.data, f)
 
     def add(self, item):
-        self.data.append(ast.literal_eval(item))
+        self.data.append(item)
 
     def remove(self, item):
         try:
             self.data.remove(item)
         except ValueError:
             return "not yay"
-
-    def __iter__(self):
-        return iter(self.data)
-
-    def data(self):
-        return self.data
 
     def delete(self, key, value):
         for i in self.data:

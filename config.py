@@ -1,12 +1,4 @@
 import json
-import logging
-import sys
-import platform
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-import os
-from colorama import Fore, Back, Style
-
 
 with open('config/config.json', 'r') as f:
     config = json.load(f)

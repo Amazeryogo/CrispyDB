@@ -3,6 +3,9 @@ from core import *
 from config import *
 from forms import *
 from flask_bootstrap import Bootstrap
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+import os
 
 SECRET_KEY = os.urandom(32)
 

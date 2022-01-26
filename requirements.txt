@@ -1,9 +1,8 @@
-colorama
 Flask
 Flask_Limiter
 Flask_WTF
 requests
-WTForms
 pwinput
 waitress
 flask_bootstrap
+WTForms

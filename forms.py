@@ -1,17 +1,14 @@
-from flask_wtf import FlaskForm as Form
-from wtforms import TextField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField, PasswordField
-from wtforms import validators, ValidationError
+from flask_wtf import FlaskForm
+import wtforms
+
+class LoginForm(FlaskForm):
+    username = wtforms.StringField('Username', validators=[wtforms.validators.DataRequired()])
+    password = wtforms.PasswordField('Password', validators=[wtforms.validators.DataRequired()])
+    submit = wtforms.SubmitField('Login')
 
 
-
-class LoginForm(Form):
-    username = TextField('Username', [validators.Required()])
-    password = PasswordField('Password', [validators.Required()])
-    submit = SubmitField('Login')
-
-
-class NewCollectionForm(Form):
-    name = TextField('Add a new Collection')
-    submit = SubmitField('Create')
+class NewCollectionForm(FlaskForm):
+    name = wtforms.StringField('Name', validators=[wtforms.validators.DataRequired()])
+    submit = wtforms.SubmitField('Create')
 
 
