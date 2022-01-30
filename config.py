@@ -2,7 +2,8 @@ import json
 
 with open('config/config.json', 'r') as f:
     config = json.load(f)
-# request per minute
+
+
 rpm = str(config['RequestsPerMinute']) + ' per minute'
 ccpm = str(config['CollectionCreationPerMinute']) + ' per minute'
 cdpm = str(config['CollectionDeletionPerMinute']) + ' per minute'

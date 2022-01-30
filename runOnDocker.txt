@@ -1,0 +1,5 @@
+Here are the docker commands, mostly for my own reference.
+
+
+docker build *the path where crispydata is stored* -tag crispyDB:latest
+docker run --publish 5000:5000 crispyDB:latest
