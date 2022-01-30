@@ -4,7 +4,9 @@ else
     if [ "$1" = "cli" ]; then
         python3 cli.py
     elif [ "$1" = "update" ]; then
-        python3 update.py
+        git stash
+        git pull
+        git stash pop
     elif [ "$1" = "install" ]; then
         pip3 install -r requirements.txt
     elif [ "$1" = "setpath" ]; then

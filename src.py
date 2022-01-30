@@ -29,7 +29,7 @@ limiter = Limiter(
 
 @app.route('/')
 def index():
-    return config['name'] + " v" + config['version']
+    return str({config['name']: config['version'], "WebUI": config['webUI']})
 
 
 @app.route('/getdata/<collection>')

@@ -11,8 +11,3 @@ class LoginForm(FlaskForm):
 class NewCollectionForm(FlaskForm):
     name = wtforms.StringField('Name', validators=[wtforms.validators.DataRequired()])
     submit = wtforms.SubmitField('Create')
-
-
-class CLIform(FlaskForm):
-    command = wtforms.StringField('Command', validators=[wtforms.validators.DataRequired()])
-    submit = wtforms.SubmitField('Submit')

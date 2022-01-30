@@ -91,9 +91,9 @@ try:
         print("wrong username")
 except KeyboardInterrupt:
     database.save()
-    print("bye")
+    print("bye\n")
     quit()
 except EOFError:
     database.save()
-    print("bye")
+    print("bye\n")
     quit()
