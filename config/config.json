@@ -6,7 +6,7 @@
     "CollectionCreationPerMinute": 5,
     "CollectionDeletionPerMinute": 5,
     "port": 5000,
-    "host": "127.0.0.1",
+    "host": "0.0.0.0",
     "admin name": "admin",
     "admin password": "admin",
     "webUI": true
