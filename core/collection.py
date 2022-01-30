@@ -43,6 +43,7 @@ class Collection:
 
     def removeall(self):
         self.data = []
+        self.save()
 
     def keysearch(self, key):
         for i in self.data:

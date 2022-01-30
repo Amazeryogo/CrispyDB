@@ -8,7 +8,7 @@ else
     elif [ "$1" = "install" ]; then
         pip3 install -r requirements.txt
     elif [ "$1" = "setpath" ]; then
-        python3 changepath.py "$2"
+        python3 setpath.py "$2"
     else
         echo "Invalid argument"
     fi

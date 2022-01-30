@@ -1,4 +1,5 @@
 FROM ubuntu:latest
+# since i use ubuntu, this is what i prefer
 WORKDIR /app
 RUN mkdir db && chmod 777 db
 COPY . .

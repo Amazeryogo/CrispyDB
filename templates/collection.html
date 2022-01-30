@@ -8,7 +8,7 @@
     <title>{{collection}}</title>
   </head>
   <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand " href="/web/login">Login</a>
         <a class="navbar-brand " href="/web/dashboard">Dashboard</a>
     </nav>
@@ -25,6 +25,10 @@
           </div>
         </div>
       </div>
+      <a href="/web/collections/{{collection}}" class="btn btn-primary">Reload {{collection}}</a>
+      <br/><br/><br/>
+      <a href="/web/delete/{{collection}}" class="btn btn-danger">Delete Database</a>
+      <a href="/web/deleteall/{{collection}}" class="btn btn-danger">Delete everything on {{collection}}</a>
     </div>
     {% endblock %}
   </body>

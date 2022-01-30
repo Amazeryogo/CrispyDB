@@ -166,7 +166,7 @@ def search(collection):
 
 @app.route('/web/status')
 def web_status():
-    return webUI
+    return str(webUI)
 
 
 @app.route('/web')
@@ -216,6 +216,23 @@ def web_dashboard():
         return "WebUI is off"
 
 
+# commands for the cli are below
+
+@app.route('/web/deleteall/<collection>', methods=['GET', 'POST'])
+def web_deleteall(collection):
+    if webUI == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
+            if collection not in Database.collections:
+                return "Collection does not exist"
+            else:
+                Database.removeAllFromCollection(collection)
+                return redirect(url_for('web_dashboard'))
+        else:
+            return redirect(url_for('web_login'))
+    else:
+        return "WebUI is off"
+
+
 @app.route('/web/collections/<collection>', methods=['GET', 'POST'])
 def web_collections(collection):
     if webUI == True:
@@ -252,21 +269,6 @@ def web_logout():
     LOGGED = False
     LOGGED_IP = None
     return redirect(url_for('web_login'))
-
-
-@app.route('/web/collections/<collection>/<data>', methods=['GET', 'POST'])
-def web_delete(collection, data):
-    if webUI == True:
-        if LOGGED == True and LOGGED_IP == request.remote_addr:
-            if collection not in Database.collections:
-                return "Collection does not exist"
-            else:
-                Database.removeFromCollection(collection, data)
-                return redirect(url_for('web_collections', collection=collection))
-        else:
-            return redirect(url_for('web_login'))
-    else:
-        return "WebUI is off"
 
 
 @app.route('/web/delete/<collection>', methods=['GET', 'POST'])
