@@ -32,6 +32,20 @@ def index():
     return config['name'] + " v" + config['version']
 
 
+@app.route('/getdata/<collection>')
+def getdata(collection):
+    auth = request.authorization
+    if auth:
+        if auth.username == USERNAME and auth.password == PASSWORD:
+            if collection not in Database.collections:
+                return json.dumps({'error': 'Collection does not exist'})
+
+            return str(Database.getCollectionData(collection))
+        else:
+            return json.dumps({'error': 'Invalid credentials'})
+    else:
+        return json.dumps({'error': 'Unauthorized'})
+
 @app.route('/create/<collection>', methods=['GET', 'POST'])
 @limiter.limit(ccpm)
 def create(collection):
@@ -248,8 +262,8 @@ def web_collections(collection):
         return "WebUI is off"
 
 
-@app.route('/getdata/<collection>', methods=['GET'])
-def getdata(collection):
+@app.route('/web/getdata/<collection>', methods=['GET'])
+def webgetdata(collection):
     if webUI == True:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if collection not in Database.collections:
@@ -261,7 +275,6 @@ def getdata(collection):
             return redirect(url_for('web_login'))
     else:
         return "WebUI is off"
-
 
 @app.route('/web/logout')
 def web_logout():
