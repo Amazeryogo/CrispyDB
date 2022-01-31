@@ -6,8 +6,6 @@ from flask_bootstrap import Bootstrap
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
-import pandas as pd
-
 
 SECRET_KEY = os.urandom(32)
 
@@ -43,6 +41,26 @@ def getdata(collection):
                 return json.dumps({'error': 'Collection does not exist'})
 
             return str(Database.getCollectionData(collection))
+        else:
+            return json.dumps({'error': 'Invalid credentials'})
+    else:
+        return json.dumps({'error': 'Unauthorized'})
+
+@app.route('/changeauth')
+def changeauth(self):
+    auth = request.authorization
+    newpass = request.args.get('newpassword')
+    if auth:
+        if auth.username == USERNAME and auth.password == PASSWORD:
+            if newpass:
+                global PASSWORD
+                PASSWORD = newpass
+                config['password'] = newpass
+                with open('config/config.json', 'w') as f:
+                    json.dump(config, f,indent=4)
+                return json.dumps({'success': 'Password changed'})
+            else:
+                return json.dumps({'error': 'Invalid new password'})
         else:
             return json.dumps({'error': 'Invalid credentials'})
     else:
@@ -278,6 +296,7 @@ def webgetdata(collection):
     else:
         return "WebUI is off"
 
+
 @app.route('/web/logout')
 def web_logout():
     global LOGGED, LOGGED_IP
@@ -298,3 +317,24 @@ def web_delete_collection(collection):
         else:
             return redirect(url_for('web_login'))
 
+
+@app.route('/web/changeauth', methods=['GET', 'POST'])
+def web_changeauth():
+    global USERNAME, PASSWORD
+    form = Changeauth()
+    if webUI == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
+            if form.validate_on_submit():
+                Oldpassword = form.old_password.data
+                Newpassword = form.new_password.data
+                if Oldpassword == PASSWORD:
+                    if Newpassword != '':
+                        PASSWORD = Newpassword
+                        config['admin password'] = Newpassword
+                        with open('config/config.json', 'w') as f:
+                            json.dump(config, f, indent=4)
+                            f.close()
+                        return redirect(url_for('web_dashboard'))
+        else:
+            return redirect(url_for('web_login'))
+    return render_template('changeauth.html', form=form)
