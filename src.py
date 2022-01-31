@@ -46,18 +46,18 @@ def getdata(collection):
     else:
         return json.dumps({'error': 'Unauthorized'})
 
-@app.route('/changeauth')
-def changeauth(self):
+
+@app.route('/changeauth', methods=['GET', 'POST'])
+def changeauth():
     auth = request.authorization
     newpass = request.args.get('newpassword')
     if auth:
         if auth.username == USERNAME and auth.password == PASSWORD:
             if newpass:
-                global PASSWORD
-                PASSWORD = newpass
-                config['password'] = newpass
+                config['admin password'] = newpass
                 with open('config/config.json', 'w') as f:
-                    json.dump(config, f,indent=4)
+                    json.dump(config, f, indent=4)
+                    print("PASSWORD HAS BEEN CHANGED, PLEASE RESTART CRISPYDB!!!")
                 return json.dumps({'success': 'Password changed'})
             else:
                 return json.dumps({'error': 'Invalid new password'})
@@ -65,6 +65,7 @@ def changeauth(self):
             return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
+
 
 @app.route('/create/<collection>', methods=['GET', 'POST'])
 @limiter.limit(ccpm)
