@@ -23,6 +23,11 @@ class Collection:
             json.dump(self.data, f)
 
     def add(self, item):
+        # get the id of the last item
+        if len(self.data) > 0:
+            item["_crispy-id"] = self.data[-1]["_crispy-id"] + 1
+        else:
+            item["_crispy-id"] = 1
         self.data.append(item)
 
     def remove(self, item):
@@ -51,7 +56,16 @@ class Collection:
                 return i
 
     def search(self, data):
+        # take the keys of the data and search for them in the collection
+        # if the key is found and the value is the same, return the item
         for i in self.data:
-            if data in i.values():
-                return i
+            for key in data.keys():
+                if key in i.keys():
+                    if i[key] == data[key] and key != "_crispy-id":
+                        return i
+                    else:
+                        continue
+                else:
+                    continue
         return "not found"
+

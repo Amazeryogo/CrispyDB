@@ -6,6 +6,8 @@ from flask_bootstrap import Bootstrap
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
+import pandas as pd
+
 
 SECRET_KEY = os.urandom(32)
 
@@ -295,3 +297,4 @@ def web_delete_collection(collection):
                 return redirect(url_for('web_dashboard'))
         else:
             return redirect(url_for('web_login'))
+
