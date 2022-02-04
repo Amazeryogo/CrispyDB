@@ -12,6 +12,7 @@ class NewCollectionForm(FlaskForm):
     name = wtforms.StringField('Name', validators=[wtforms.validators.DataRequired()])
     submit = wtforms.SubmitField('Create')
 
+
 class Changeauth(FlaskForm):
     old_password = wtforms.PasswordField('Old Password', validators=[wtforms.validators.DataRequired()])
     new_password = wtforms.PasswordField('New Password', validators=[wtforms.validators.DataRequired()])

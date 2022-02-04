@@ -29,12 +29,21 @@ class Collection:
         else:
             item["_crispy-id"] = 1
         self.data.append(item)
+        self.save()
 
     def remove(self, item):
+        # remove the item from the collection
         try:
             self.data.remove(item)
+            self.save()
         except ValueError:
-            return "not yay"
+            # try to remove the item by id
+            for i in self.data:
+                if i['_crispy-id'] == item['_crispy-id']:
+                    self.data.remove(i)
+                    self.save()
+                    return "deleted"
+            return "not found"
 
     def delete(self, key, value):
         for i in self.data:
@@ -68,4 +77,3 @@ class Collection:
                 else:
                     continue
         return "not found"
-

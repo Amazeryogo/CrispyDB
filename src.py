@@ -1,6 +1,8 @@
+import uuid
 from flask import *
 from core import *
 from config import *
+import config
 from forms import *
 from flask_bootstrap import Bootstrap
 from flask_limiter import Limiter
@@ -15,7 +17,7 @@ LOGGED = False
 global LOGGED_IP
 LOGGED_IP = ""
 
-Database = Database(config['path'])
+Database = Database(config.config['path'])
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -29,18 +31,33 @@ limiter = Limiter(
 
 @app.route('/')
 def index():
-    return str({config['name']: config['version'], "WebUI": config['webUI']})
+    return str({config.config['name']: config.config['version'], "WebUI": config.config['webUI']})
 
 
 @app.route('/getdata/<collection>')
 def getdata(collection):
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
+            return str(Database.loadCollection(collection))
+        else:
+            return json.dumps({'error': 'Collection does not exist'})
+    else:
+        return json.dumps({'error': 'Unauthorized'})
+
+
+@app.route('/create/token', methods=['GET', 'POST'])
+@limiter.limit(rpm)
+def createToken():
     auth = request.authorization
     if auth:
         if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            return str(Database.getCollectionData(collection))
+            token = str(uuid.uuid4())
+            config.tokens.append(token)
+            with open('config/tokens.json', 'w') as f:
+                json.dump(config.tokens, f, indent=4)
+            print("TOKEN HAS BEEN CREATED, {}".format(token))
+            return json.dumps({'success': token})
         else:
             return json.dumps({'error': 'Invalid credentials'})
     else:
@@ -54,7 +71,7 @@ def changeauth():
     if auth:
         if auth.username == USERNAME and auth.password == PASSWORD:
             if newpass:
-                config['admin password'] = newpass
+                config.config['admin password'] = newpass
                 with open('config/config.json', 'w') as f:
                     json.dump(config, f, indent=4)
                     print("PASSWORD HAS BEEN CHANGED, PLEASE RESTART CRISPYDB!!!")
@@ -70,16 +87,13 @@ def changeauth():
 @app.route('/create/<collection>', methods=['GET', 'POST'])
 @limiter.limit(ccpm)
 def create(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection in Database.collections:
-                return json.dumps({'error': 'Collection already exists'})
-
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
+            return json.dumps({'error': 'Collection already exists'})
+        else:
             Database.createCollection(collection)
             return json.dumps({'success': 'Collection created'})
-        else:
-            return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -87,15 +101,13 @@ def create(collection):
 @app.route('/load/<collection>', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def load(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            return str(Database.loadCollection(collection))
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
+            Database.loadCollection(collection)
+            return json.dumps({'success': 'Collection loaded'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Collection does not exist'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -103,13 +115,17 @@ def load(collection):
 @app.route('/save', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def save():
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            Database.save()
-            return json.dumps({'success': 'Database saved'})
+    token = request.args.get('token')
+    if token in config.tokens:
+        if request.method == 'POST':
+            data = request.get_json()
+            if data:
+                Database.saveCollection(data)
+                return json.dumps({'success': 'Collection saved'})
+            else:
+                return json.dumps({'error': 'Invalid data'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Invalid request'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -117,35 +133,41 @@ def save():
 @app.route('/add/<collection>', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def add(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            data = request.get_json()
-            Database.addToCollection(collection, data)
-            return json.dumps({'success': 'Item added'})
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
+            if request.method == 'POST':
+                data = request.get_json()
+                if data:
+                    Database.addToCollection(collection, data)
+                    return json.dumps({'success': 'Document added'})
+                else:
+                    return json.dumps({'error': 'Invalid data'})
+            else:
+                return json.dumps({'error': 'Invalid request'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Collection does not exist'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
 
-@app.route('/remove/<collection>', methods=['GET', 'POST'])
+@app.route('/removefrom/<collection>', methods=['GET', 'POST'])
 @limiter.limit(rpm)
 def remove(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            data = request.get_json()
-            Database.removeFromCollection(collection, data)
-            return json.dumps({'success': 'Data removed'})
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
+            if request.method == 'POST':
+                data = request.get_json()
+                if data:
+                    Database.removeFromCollection(collection, data)
+                    return json.dumps({'success': 'Document removed'})
+                else:
+                    return json.dumps({'error': 'Invalid data'})
+            else:
+                return json.dumps({'error': 'Invalid request'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Collection does not exist'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -153,51 +175,63 @@ def remove(collection):
 @app.route('/delete/<collection>', methods=['GET', 'POST'])
 @limiter.limit(cdpm)
 def delete(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
             Database.deleteCollection(collection)
             return json.dumps({'success': 'Collection deleted'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Collection does not exist'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
 
 @app.route('/keysearch/<collection>', methods=['GET', 'POST'])
 def keysearch(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            data = request.get_json()
-            return json.dumps(Database.keysearch(collection, data))
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
+            if request.method == 'POST':
+                data = request.get_json()
+                if data:
+                    return json.dumps(Database.keysearch(collection, data))
+                else:
+                    return json.dumps({'error': 'Invalid data'})
+            else:
+                return json.dumps({'error': 'Invalid request'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
-    else:
-        return json.dumps({'error': 'Unauthorized'})
+            return json.dumps({'error': 'Collection does not exist'})
 
 
 @app.route('/search/<collection>', methods=['GET', 'POST'])
 def search(collection):
-    auth = request.authorization
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if collection not in Database.collections:
-                return json.dumps({'error': 'Collection does not exist'})
-
-            data = request.get_json()
-            return json.dumps(Database.search(collection, data))
+    token = request.args.get('token')
+    if token in config.tokens:
+        if collection in Database.collections:
+            if request.method == 'POST':
+                data = request.get_json()
+                if data:
+                    return json.dumps(Database.search(collection, data))
+                else:
+                    return json.dumps({'error': 'Invalid data'})
+            else:
+                return json.dumps({'error': 'Invalid request'})
         else:
-            return json.dumps({'error': 'Invalid credentials'})
+            return json.dumps({'error': 'Collection does not exist'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
+
+@app.route('/tokens', methods=['GET', 'POST'])
+def tokens():
+    token = request.args.get('token')
+    if token in config.tokens:
+        return json.dumps(tokens)
+    else:
+        return json.dumps({'error': 'Unauthorized'})
+
+
+############################################################
 
 @app.route('/web/status')
 def web_status():
@@ -283,6 +317,26 @@ def web_collections(collection):
         return "WebUI is off"
 
 
+@app.route('/web/createtoken', methods=['GET', 'POST'])
+def web_createtoken():
+    if webUI == True:
+        if LOGGED == True and LOGGED_IP == request.remote_addr:
+            token = str(uuid.uuid4())
+            config.tokens.append(token)
+            with open('config/tokens.json', 'w') as f:
+                json.dump(config.tokens, f, indent=4)
+                ret = "Token created: " + token
+            return ret
+        else:
+            return redirect(url_for('web_login'))
+
+# one piece lol
+@app.route('/onepiece')
+def onepiece():
+    for x in eastereggs:
+        if x["name"] == "onepiece":
+            return x["lyrics"]
+
 @app.route('/web/getdata/<collection>', methods=['GET'])
 def webgetdata(collection):
     if webUI == True:
@@ -304,6 +358,11 @@ def web_logout():
     LOGGED = False
     LOGGED_IP = None
     return redirect(url_for('web_login'))
+
+@app.route('/getallroutes')
+def getallroutes():
+    # print all routes in a json friendly format
+    return str(app.url_map)
 
 
 @app.route('/web/delete/<collection>', methods=['GET', 'POST'])
@@ -331,7 +390,7 @@ def web_changeauth():
                 if Oldpassword == PASSWORD:
                     if Newpassword != '':
                         PASSWORD = Newpassword
-                        config['admin password'] = Newpassword
+                        config.config['admin password'] = Newpassword
                         with open('config/config.json', 'w') as f:
                             json.dump(config, f, indent=4)
                             f.close()
