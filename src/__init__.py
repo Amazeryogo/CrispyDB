@@ -1,9 +1,9 @@
 import uuid
 from flask import *
-from core import *
-from config import *
-import config
-from forms import *
+from src.core import *
+from src.configman import *
+import src.configman as config
+from src.forms import *
 from flask_bootstrap import Bootstrap
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address

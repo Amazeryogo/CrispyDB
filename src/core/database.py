@@ -1,5 +1,5 @@
 import os
-from core.collection import Collection
+from src.core.collection import Collection
 
 
 class Database:

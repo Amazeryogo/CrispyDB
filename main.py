@@ -1,5 +1,5 @@
 from src import *
-from config import *
+from src.configman import *
 import sys
 import waitress
 try:

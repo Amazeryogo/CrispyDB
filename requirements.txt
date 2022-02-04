@@ -6,7 +6,4 @@ pwinput
 waitress
 flask_bootstrap
 WTForms
-pandas
-numpy
-scipy
 toml
