@@ -9,3 +9,4 @@ WTForms
 pandas
 numpy
 scipy
+toml
