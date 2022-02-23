@@ -17,6 +17,3 @@ name = config['name']
 
 with open('src/config/tokens.json', 'r') as p:
     tokens = json.load(p)
-
-with open("src/config/eastereggs.json", "r") as e:
-    eastereggs = json.load(e)

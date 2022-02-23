@@ -330,12 +330,6 @@ def web_createtoken():
         else:
             return redirect(url_for('web_login'))
 
-# one piece lol
-@app.route('/onepiece')
-def onepiece():
-    for x in eastereggs:
-        if x["name"] == "onepiece":
-            return x["lyrics"]
 
 @app.route('/web/getdata/<collection>', methods=['GET'])
 def webgetdata(collection):

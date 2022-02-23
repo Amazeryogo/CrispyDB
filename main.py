@@ -11,5 +11,3 @@ except KeyboardInterrupt:
 except EOFError:
     Database.save()
     sys.exit(1)
-
-

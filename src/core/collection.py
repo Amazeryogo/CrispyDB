@@ -25,9 +25,9 @@ class Collection:
     def add(self, item):
         # get the id of the last item
         if len(self.data) > 0:
-            item["_crispy-id"] = self.data[-1]["_crispy-id"] + 1
+            item["_crispyid"] = self.data[-1]["_crispyid"] + 1
         else:
-            item["_crispy-id"] = 1
+            item["_crispyid"] = 1
         self.data.append(item)
         self.save()
 
@@ -39,7 +39,7 @@ class Collection:
         except ValueError:
             # try to remove the item by id
             for i in self.data:
-                if i['_crispy-id'] == item['_crispy-id']:
+                if i['_crispyid'] == item['_crispyid']:
                     self.data.remove(i)
                     self.save()
                     return "deleted"
@@ -70,7 +70,7 @@ class Collection:
         for i in self.data:
             for key in data.keys():
                 if key in i.keys():
-                    if i[key] == data[key] and key != "_crispy-id":
+                    if i[key] == data[key] and key != "_crispyid":
                         return i
                     else:
                         continue
