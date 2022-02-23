@@ -4,7 +4,6 @@ CrispyDB is a simple database for storing and retrieving data designed to be use
 ## Features
 * Uses Json to store data
 * Uses GET and POST requests to store and retrieve data instead of queries
-* Has a simple and intuitive CLI
 * Has a fancy GUI web interface called WebUI
 
 
