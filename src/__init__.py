@@ -54,14 +54,28 @@ def createToken():
         if auth.username == USERNAME and auth.password == PASSWORD:
             token = str(uuid.uuid4())
             config.tokens.append(token)
-            with open('config/tokens.json', 'w') as f:
+            with open('src/config/tokens.json', 'w') as f:
                 json.dump(config.tokens, f, indent=4)
             print("TOKEN HAS BEEN CREATED, {}".format(token))
-            return json.dumps({'success': token})
+            return json.dumps(token)
         else:
             return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
+
+
+@app.route("/flush/token", methods=['GET', 'POST'])
+@limiter.limit(rpm)
+def flushToken():
+    token = request.args.get('token')
+    if token in config.tokens:
+        config.tokens.remove(token)
+        with open('src/config/tokens.json', 'w') as f:
+            json.dump(config.tokens, f, indent=4)
+        print("TOKEN HAS BEEN FLUSHED, {}".format(token))
+        return json.dumps({'success': 'Token has been flushed'})
+    else:
+        return json.dumps({'error': 'token not found'})
 
 
 @app.route('/changeauth', methods=['GET', 'POST'])
@@ -353,6 +367,7 @@ def web_logout():
     LOGGED_IP = None
     return redirect(url_for('web_login'))
 
+
 @app.route('/getallroutes')
 def getallroutes():
     # print all routes in a json friendly format
@@ -392,3 +407,11 @@ def web_changeauth():
         else:
             return redirect(url_for('web_login'))
     return render_template('changeauth.html', form=form)
+
+
+@app.route('/help/endpoints')
+def help_endpoints():
+    x = []
+    for rule in app.url_map.iter_rules():
+        x += [rule.rule]
+    return str(x)

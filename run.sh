@@ -2,7 +2,7 @@ if [ -z "$1" ]; then
     python3 main.py
 else
     if [ "$1" = "cli" ]; then
-        echo "cli is deprecated"
+        bash cli/cli.sh "$2"
     elif [ "$1" = "update" ]; then
         git stash
         git pull
