@@ -5,6 +5,7 @@ CrispyDB is a simple database for storing and retrieving data designed to be use
 * Uses Json to store data
 * Uses GET and POST requests to store and retrieve data instead of queries
 * Has a fancy GUI web interface called WebUI
+* Has a cli written in bash to make it an executable script to be used anywhere
 
 
 
@@ -36,26 +37,42 @@ $ bash run.sh cli
 
 
 ## Here is a simple example of how to use CrispyDB
-```python
-import requests
-print(requests.post('http://127.0.0.1:5000/create/hmmm',auth=('admin','admin')).text)
-# creates a collection called hmmm
-print(requests.get('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
-# returns the data in the collection hmmm (which should be [])
-print(requests.post('http://127.0.0.1:5000/add/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
-# adds the data to the collection hmmm
-print(requests.get('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
-# returns the data in the collection hmmm (which should be [{'a':1,'b':2}])
-print(requests.post('http://127.0.0.1:5000/remove/hmmm',json={'a':1,'b':2},auth=('admin','admin')).text)
-# removes the data from the collection hmmm
-print(requests.get('http://127.0.0.1:5000/getdata/hmmm',auth=('admin','admin')).text)
-# returns the data in the collection hmmm (which should be [])
-print(requests.post('http://127.0.0.1:5000/delete/hmmm',auth=('admin','admin')).text)
-# deletes the collection hmmm
+```bash
+TOKEN="1e533624-1ea6-4106-9f61-a557cc917632"
 
-# Usually, we have a list to keep all your json in memory, if you want to save your data, you must send a request to /save
-print(requests.post('http://127.0.0.1:5000/save',auth=('admin','admin')).text)
+# to make sure it is running
+curl http://0.0.0.0:5000/
+# create a new collection called collection
+curl http://0.0.0.0:5000/create/collection?token=$TOKEN
+# get the data from the collection (should be empty)
+curl http://0.0.0.0:5000/getdata/collection?token=$TOKEN
+# add some data to the collection
+curl http://0.0.0.0:5000/add/collection?token=$TOKEN  --header "Content-Type: application/json" --request POST --data '{"name":"test","_crispy-id":1}'
+# get data again
+curl http://0.0.0.0:5000/getdata/collection?token=$TOKEN
+# remove the data from the collection
+curl http://0.0.0.0:5000/removefrom/collection?token=$TOKEN  --header "Content-Type: application/json" --request POST --data '{"name":"test","_crispy-id":1}'
+# get data again which should be empty again
+curl http://0.0.0.0:5000/getdata/collection?token=$TOKEN
+# delete the collection
+curl http://0.0.0.0:5000/delete/collection?token=$TOKEN
 ```
+or in python
+```python3
+import requests
+TOKEN="1e533624-1ea6-4106-9f61-a557cc917632"
+
+requests.get("http://0.0.0.0:5000/")
+requests.get("http://0.0.0.0:5000/create/collection?token={}".format(TOKEN))
+requests.get("http://0.0.0.0:5000/getdata/collection?token={}".format(TOKEN))
+requests.post("http://0.0.0.0:5000/add/collection?token={}".format(TOKEN), json={"name":"test","_crispy-id":1})
+requests.post("http://0.0.0.0:5000/getdata/collection?token={}".format(TOKEN))
+requests.post("http://0.0.0.0:removefrom/collection?token={}".format(TOKEN), json={"name":"test","_crispy-id":1})
+requests.post("http://0.0.0.0:5000/getdata/collection?token={}".format(TOKEN))
+requests.post("http://0.0.0.0:5000/delete/collection?token={}".format(TOKEN))
+```
+#### NOTE: YOU NEED TO MAKE A TOKEN USING /create/token endpoint
+
 ### The License
 ```
 MIT License
