@@ -2,6 +2,7 @@ import json
 import os
 
 
+
 class Collection:
     def __init__(self, name, path):
         self.name = name
