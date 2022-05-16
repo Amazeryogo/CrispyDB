@@ -31,7 +31,10 @@ limiter = Limiter(
 
 @app.route('/')
 def index():
-    return str({config.config['name']: config.config['version'], "WebUI": config.config['webUI']})
+    if config.config['webUI'] == "True":
+        return str({config.config['name']: config.config['version'], "WebUI": config.config['webUI']}) + '<a href="/login">Login</a> '
+    else:
+        return str({config.config['name']: config.config['version'], "WebUI": config.config['webUI']})
 
 
 @app.route('/getdata/<collection>')
@@ -39,7 +42,7 @@ def getdata(collection):
     token = request.args.get('token')
     if token in config.tokens:
         if collection in Database.collections:
-            return str(Database.loadCollection(collection))
+            return str(Database.getdata(collection))
         else:
             return json.dumps({'error': 'Collection does not exist'})
     else:

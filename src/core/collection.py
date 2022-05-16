@@ -1,80 +1,49 @@
 import json
 import os
+from dataclasses import dataclass
 
 
-
+@dataclass
 class Collection:
-    def __init__(self, name, path):
-        self.name = name
-        self.path = path + "/" + name + ".json"
-        self.data = []
-        self.load()
+    name: str
+    path: str
+    data = []
+    x = None
 
     def load(self):
-        if os.path.isfile(self.path):
-            with open(self.path, "r") as f:
-                self.data = json.load(f)
-        else:
-            self.save()
-
-        return self.data
+        if not os.path.exists(self.path):
+            return "not found"
+        self.x = lambda x: json.loads(open(self.path + "/" + self.name + ".json", "r").read())
 
     def save(self):
-        with open(self.path, "w") as f:
-            json.dump(self.data, f)
+        var = lambda x: open(self.path + "/" + self.name + ".json", "w").write(json.dumps(self.data))
+        return var
 
     def add(self, item):
-        # get the id of the last item
-        if len(self.data) > 0:
-            item["_crispyid"] = self.data[-1]["_crispyid"] + 1
-        else:
-            item["_crispyid"] = 1
         self.data.append(item)
         self.save()
 
     def remove(self, item):
-        # remove the item from the collection
         try:
             self.data.remove(item)
             self.save()
         except ValueError:
-            # try to remove the item by id
-            for i in self.data:
-                if i['_crispyid'] == item['_crispyid']:
-                    self.data.remove(i)
-                    self.save()
-                    return "deleted"
             return "not found"
 
-    def delete(self, key, value):
+    def update(self, x, y):
         for i in self.data:
-            if i[key] == value:
-                self.data.remove(i)
-                return "deleted"
+            if i[x] == x:
+                i[y] = y
+                self.save()
+                return "updated"
         return "not found"
-
-    def __len__(self):
-        return len(self.data)
 
     def removeall(self):
         self.data = []
         self.save()
 
-    def keysearch(self, key):
+    def search(self, x):
         for i in self.data:
-            if key in i.keys():
+            if i[x] == x:
                 return i
-
-    def search(self, data):
-        # take the keys of the data and search for them in the collection
-        # if the key is found and the value is the same, return the item
-        for i in self.data:
-            for key in data.keys():
-                if key in i.keys():
-                    if i[key] == data[key] and key != "_crispyid":
-                        return i
-                    else:
-                        continue
-                else:
-                    continue
         return "not found"
