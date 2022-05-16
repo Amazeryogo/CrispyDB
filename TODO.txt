@@ -1,4 +1,4 @@
-For version 2 and above, we will add the following
+For version 2.1 and above, we will add the following
 1) Explicit Data Types
 2) Add support for websockets and possibly replace flask
 3) Better support for tokens
