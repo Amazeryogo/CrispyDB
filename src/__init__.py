@@ -8,6 +8,8 @@ from flask_bootstrap import Bootstrap
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
+import socket
+import IORM
 
 SECRET_KEY = os.urandom(32)
 
@@ -28,6 +30,7 @@ limiter = Limiter(
     default_limits=[rpm]
 )
 
+# THIS IS ALL USELESS, WE DO NOT NEED FLASK, WE NEED A SOCKET/WEBSOCKET CONNECTION ONLY.
 
 @app.route('/')
 def index():

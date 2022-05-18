@@ -2,7 +2,7 @@ import sys
 import json
 
 path = sys.argv[1]
-f = open('src/config/config.json', 'r')
+f = open(path,'r')
 config = json.load(f)
 config['path'] = path
 f.close()

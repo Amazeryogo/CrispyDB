@@ -13,34 +13,27 @@ class Database:
             if name.endswith(".json"):
                 self.collections[name[:-5]] = Collection(name[:-5], self.path)
 
-    def getdata(self,name):
-        return self.collections[name].data
+    def getdata(self, name): return self.collections[name].data
 
     def createCollection(self, name):
         os.system("touch {}".format(self.path + "/" + name + ".json"))
         self.collections[name] = Collection(name, self.path)
 
-    def getCollections(self):
-        return list(self.collections.keys())
+    def getCollections(self): return list(self.collections.keys())
 
-    def getCollectionData(self, name):
-        return self.collections[name].data
+    def getCollectionData(self, name): return self.collections[name].data
 
-    def loadCollection(self, name):
-        return self.collections[name].load()
+    def loadCollection(self, name): return self.collections[name].load()
 
     def deleteCollection(self, name):
         del self.collections[name]
         os.remove(self.path + "/" + name + ".json")
 
-    def search(self, collection, query):
-        return self.collections[collection].search(query)
+    def search(self, collection, query): return self.collections[collection].search(query)
 
-    def addToCollection(self, collection, item):
-        self.collections[collection].add(item)
+    def addToCollection(self, collection, item): self.collections[collection].add(item)
 
-    def removeFromCollection(self, name, item):
-        self.collections[name].remove(item)
+    def removeFromCollection(self, name, item): self.collections[name].remove(item)
 
     def saveCollection(self, name):
         for collection in self.collections:
@@ -48,8 +41,7 @@ class Database:
                 self.collections[collection].save()
         return "Collection saved"
 
-    def removeAllFromCollection(self, name):
-        self.collections[name].removeall()
+    def removeAllFromCollection(self, name): self.collections[name].removeall()
 
     def save(self):
         for collection in self.collections:

@@ -6,3 +6,4 @@ pwinput
 waitress
 flask_bootstrap
 WTForms
+websockets

@@ -3,6 +3,7 @@ from src.configman import *
 import sys
 import waitress
 
+
 try:
     print("CrispyDB is now running on {}:{}".format(config['host'], config['port']))
     waitress.serve(app, host=HOST, port=PORT)

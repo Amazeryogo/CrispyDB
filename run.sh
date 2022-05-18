@@ -9,6 +9,7 @@ else
         git stash pop
     elif [ "$1" = "install" ]; then
         pip3 install -r requirements.txt
+        touch .internal.db
     elif [ "$1" = "setpath" ]; then
         python3 src/setpath.py "$2"
     else
