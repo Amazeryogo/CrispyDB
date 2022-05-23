@@ -41,7 +41,7 @@ class Database:
                 self.collections[collection].save()
         return "Collection saved"
 
-    def removeAllFromCollection(self, name): self.collections[name].removeall()
+    def nukeCollection(self, name): self.collections[name].removeall()
 
     def save(self):
         for collection in self.collections:

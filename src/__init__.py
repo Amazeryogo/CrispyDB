@@ -8,8 +8,6 @@ from flask_bootstrap import Bootstrap
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
-import socket
-import IORM
 
 SECRET_KEY = os.urandom(32)
 
@@ -30,12 +28,14 @@ limiter = Limiter(
     default_limits=[rpm]
 )
 
+
 # THIS IS ALL USELESS, WE DO NOT NEED FLASK, WE NEED A SOCKET/WEBSOCKET CONNECTION ONLY.
 
 @app.route('/')
 def index():
     if config.config['webUI'] == "True":
-        return str({config.config['name']: config.config['version'], "WebUI": config.config['webUI']}) + '<a href="/login">Login</a> '
+        return str({config.config['name']: config.config['version'],
+                    "WebUI": config.config['webUI']}) + '<a href="/login">Login</a> '
     else:
         return str({config.config['name']: config.config['version'], "WebUI": config.config['webUI']})
 
@@ -92,8 +92,8 @@ def changeauth():
         if auth.username == USERNAME and auth.password == PASSWORD:
             if newpass:
                 config.config['admin password'] = newpass
-                with open('config/config.json', 'w') as f:
-                    json.dump(config, f, indent=4)
+                with open('config/config.json', 'w') as fx:
+                    json.dump(config, fx, indent=4)
                     print("PASSWORD HAS BEEN CHANGED, PLEASE RESTART CRISPYDB!!!")
                 return json.dumps({'success': 'Password changed'})
             else:
@@ -206,23 +206,6 @@ def delete(collection):
         return json.dumps({'error': 'Unauthorized'})
 
 
-@app.route('/keysearch/<collection>', methods=['GET', 'POST'])
-def keysearch(collection):
-    token = request.args.get('token')
-    if token in config.tokens:
-        if collection in Database.collections:
-            if request.method == 'POST':
-                data = request.get_json()
-                if data:
-                    return json.dumps(Database.keysearch(collection, data))
-                else:
-                    return json.dumps({'error': 'Invalid data'})
-            else:
-                return json.dumps({'error': 'Invalid request'})
-        else:
-            return json.dumps({'error': 'Collection does not exist'})
-
-
 @app.route('/search/<collection>', methods=['GET', 'POST'])
 def search(collection):
     token = request.args.get('token')
@@ -266,7 +249,7 @@ def web():
 @app.route('/web/login', methods=['GET', 'POST'])
 @limiter.exempt
 def web_login():
-    if webUI == True:
+    if webUI:
         form = LoginForm()
         if form.validate_on_submit():
             if form.username.data == USERNAME and form.password.data == PASSWORD:
@@ -286,7 +269,7 @@ def web_login():
 @app.route('/web/dashboard', methods=['GET', 'POST'])
 def web_dashboard():
     newcollection = NewCollectionForm()
-    if webUI == True:
+    if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if newcollection.validate_on_submit():
                 if newcollection.name.data not in Database.collections:
@@ -309,12 +292,12 @@ def web_dashboard():
 
 @app.route('/web/deleteall/<collection>', methods=['GET', 'POST'])
 def web_deleteall(collection):
-    if webUI == True:
+    if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if collection not in Database.collections:
                 return "Collection does not exist"
             else:
-                Database.removeAllFromCollection(collection)
+                Database.nukeCollection(collection)
                 return redirect(url_for('web_dashboard'))
         else:
             return redirect(url_for('web_login'))
@@ -324,7 +307,7 @@ def web_deleteall(collection):
 
 @app.route('/web/collections/<collection>', methods=['GET', 'POST'])
 def web_collections(collection):
-    if webUI == True:
+    if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if collection not in Database.collections:
                 return "Collection does not exist"
@@ -339,7 +322,7 @@ def web_collections(collection):
 
 @app.route('/web/createtoken', methods=['GET', 'POST'])
 def web_createtoken():
-    if webUI == True:
+    if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             token = str(uuid.uuid4())
             config.tokens.append(token)
@@ -353,7 +336,7 @@ def web_createtoken():
 
 @app.route('/web/getdata/<collection>', methods=['GET'])
 def webgetdata(collection):
-    if webUI == True:
+    if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if collection not in Database.collections:
                 return "Collection does not exist"
@@ -369,8 +352,7 @@ def webgetdata(collection):
 @app.route('/web/logout')
 def web_logout():
     global LOGGED, LOGGED_IP
-    LOGGED = False
-    LOGGED_IP = None
+    LOGGED, LOGGED_IP = False, None
     return redirect(url_for('web_login'))
 
 
@@ -382,7 +364,7 @@ def getallroutes():
 
 @app.route('/web/delete/<collection>', methods=['GET', 'POST'])
 def web_delete_collection(collection):
-    if webUI == True:
+    if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if collection not in Database.collections:
                 return "Collection does not exist"
@@ -397,7 +379,7 @@ def web_delete_collection(collection):
 def web_changeauth():
     global USERNAME, PASSWORD
     form = Changeauth()
-    if webUI == True:
+    if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if form.validate_on_submit():
                 Oldpassword = form.old_password.data
