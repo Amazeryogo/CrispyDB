@@ -16,8 +16,8 @@ class Collection:
         self.x = lambda x: json.loads(open(self.path + "/" + self.name + ".json", "r").read())
 
     def save(self):
-        var = lambda x: open(self.path + "/" + self.name + ".json", "w").write(json.dumps(self.data))
-        return var
+        x = open(self.path + "/" + self.name + ".json", "a")
+        x.write(json.dumps(self.data))
 
     def add(self, item):
         self.data.append(item)

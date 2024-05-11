@@ -24,12 +24,8 @@ app.config['SECRET_KEY'] = SECRET_KEY
 bootstrap = Bootstrap(app)
 limiter = Limiter(
     app,
-    key_func=get_remote_address,
     default_limits=[rpm]
 )
-
-
-# THIS IS ALL USELESS, WE DO NOT NEED FLASK, WE NEED A SOCKET/WEBSOCKET CONNECTION ONLY.
 
 @app.route('/')
 def index():
@@ -179,6 +175,7 @@ def remove(collection):
         if collection in Database.collections:
             if request.method == 'POST':
                 data = request.get_json()
+                print(request.args)
                 if data:
                     Database.removeFromCollection(collection, data)
                     return json.dumps({'success': 'Document removed'})
