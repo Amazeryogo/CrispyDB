@@ -1,6 +1,6 @@
 import uuid
 from flask import *
-from src.core import *
+from src.crispydb.db import CrispyDB
 from src.configman import *
 import src.configman as config
 from src.forms import *
@@ -17,9 +17,13 @@ LOGGED = False
 global LOGGED_IP
 LOGGED_IP = ""
 
-Database = Database(config.config['path'])
-
 app = Flask(__name__)
+db = None
+
+def init_db():
+    global db
+    crispy = CrispyDB(config.config['path'])
+    db = crispy.db('main')
 app.config['SECRET_KEY'] = SECRET_KEY
 bootstrap = Bootstrap(app)
 limiter = Limiter(
@@ -40,8 +44,8 @@ def index():
 def getdata(collection):
     token = request.args.get('token')
     if token in config.tokens:
-        if collection in Database.collections:
-            return str(Database.getdata(collection))
+        if collection in db.get_tables():
+            return json.dumps(db.table(collection).data)
         else:
             return json.dumps({'error': 'Collection does not exist'})
     else:
@@ -105,43 +109,11 @@ def changeauth():
 def create(collection):
     token = request.args.get('token')
     if token in config.tokens:
-        if collection in Database.collections:
+        if collection in db.get_tables():
             return json.dumps({'error': 'Collection already exists'})
         else:
-            Database.createCollection(collection)
+            db.table(collection)
             return json.dumps({'success': 'Collection created'})
-    else:
-        return json.dumps({'error': 'Unauthorized'})
-
-
-@app.route('/load/<collection>', methods=['GET', 'POST'])
-@limiter.limit(rpm)
-def load(collection):
-    token = request.args.get('token')
-    if token in config.tokens:
-        if collection in Database.collections:
-            Database.loadCollection(collection)
-            return json.dumps({'success': 'Collection loaded'})
-        else:
-            return json.dumps({'error': 'Collection does not exist'})
-    else:
-        return json.dumps({'error': 'Unauthorized'})
-
-
-@app.route('/save', methods=['GET', 'POST'])
-@limiter.limit(rpm)
-def save():
-    token = request.args.get('token')
-    if token in config.tokens:
-        if request.method == 'POST':
-            data = request.get_json()
-            if data:
-                Database.saveCollection(data)
-                return json.dumps({'success': 'Collection saved'})
-            else:
-                return json.dumps({'error': 'Invalid data'})
-        else:
-            return json.dumps({'error': 'Invalid request'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -151,11 +123,11 @@ def save():
 def add(collection):
     token = request.args.get('token')
     if token in config.tokens:
-        if collection in Database.collections:
+        if collection in db.get_tables():
             if request.method == 'POST':
                 data = request.get_json()
                 if data:
-                    Database.addToCollection(collection, data)
+                    db.table(collection).add(data)
                     return json.dumps({'success': 'Document added'})
                 else:
                     return json.dumps({'error': 'Invalid data'})
@@ -172,13 +144,14 @@ def add(collection):
 def remove(collection):
     token = request.args.get('token')
     if token in config.tokens:
-        if collection in Database.collections:
+        if collection in db.get_tables():
             if request.method == 'POST':
                 data = request.get_json()
-                print(request.args)
                 if data:
-                    Database.removeFromCollection(collection, data)
-                    return json.dumps({'success': 'Document removed'})
+                    if db.table(collection).remove(data):
+                        return json.dumps({'success': 'Document removed'})
+                    else:
+                        return json.dumps({'error': 'Document not found'})
                 else:
                     return json.dumps({'error': 'Invalid data'})
             else:
@@ -194,8 +167,8 @@ def remove(collection):
 def delete(collection):
     token = request.args.get('token')
     if token in config.tokens:
-        if collection in Database.collections:
-            Database.deleteCollection(collection)
+        if collection in db.get_tables():
+            db.delete_table(collection)
             return json.dumps({'success': 'Collection deleted'})
         else:
             return json.dumps({'error': 'Collection does not exist'})
@@ -207,11 +180,11 @@ def delete(collection):
 def search(collection):
     token = request.args.get('token')
     if token in config.tokens:
-        if collection in Database.collections:
+        if collection in db.get_tables():
             if request.method == 'POST':
                 data = request.get_json()
                 if data:
-                    return json.dumps(Database.search(collection, data))
+                    return json.dumps(db.table(collection).search(data))
                 else:
                     return json.dumps({'error': 'Invalid data'})
             else:
@@ -226,9 +199,38 @@ def search(collection):
 def tokens():
     token = request.args.get('token')
     if token in config.tokens:
-        return json.dumps(tokens)
+        return json.dumps(config.tokens)
     else:
         return json.dumps({'error': 'Unauthorized'})
+
+
+@app.route('/upload/<collection>', methods=['POST'])
+def upload_file(collection):
+    token = request.args.get('token')
+    if token not in config.tokens:
+        return json.dumps({'error': 'Unauthorized'})
+    if collection not in db.get_tables():
+        return json.dumps({'error': 'Collection does not exist'})
+    if 'file' not in request.files:
+        return json.dumps({'error': 'No file part'})
+    file = request.files['file']
+    if file.filename == '':
+        return json.dumps({'error': 'No selected file'})
+    if file:
+        file_id = db.store_binary(file.read())
+        return json.dumps({'success': 'File uploaded', 'file_id': file_id})
+
+
+@app.route('/download/<file_id>')
+def download_file(file_id):
+    token = request.args.get('token')
+    if token not in config.tokens:
+        return json.dumps({'error': 'Unauthorized'})
+    data = db.retrieve_binary(file_id)
+    if data:
+        return send_file(io.BytesIO(data), mimetype='application/octet-stream')
+    else:
+        return json.dumps({'error': 'File not found'})
 
 
 ############################################################
@@ -269,15 +271,15 @@ def web_dashboard():
     if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
             if newcollection.validate_on_submit():
-                if newcollection.name.data not in Database.collections:
+                if newcollection.name.data not in db.get_tables():
                     if newcollection.name.data != '':
-                        Database.createCollection(newcollection.name.data)
+                        db.table(newcollection.name.data)
                         return redirect(url_for('web_dashboard'))
                     else:
                         pass
                 else:
                     return "Collection already exists"
-            collections = Database.collections
+            collections = db.get_tables()
             return render_template('index.html', collections=collections, nform=newcollection, name=name)
         else:
             return redirect(url_for('web_login'))
@@ -291,10 +293,10 @@ def web_dashboard():
 def web_deleteall(collection):
     if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
-            if collection not in Database.collections:
+            if collection not in db.get_tables():
                 return "Collection does not exist"
             else:
-                Database.nukeCollection(collection)
+                db.table(collection).removeall()
                 return redirect(url_for('web_dashboard'))
         else:
             return redirect(url_for('web_login'))
@@ -306,10 +308,10 @@ def web_deleteall(collection):
 def web_collections(collection):
     if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
-            if collection not in Database.collections:
+            if collection not in db.get_tables():
                 return "Collection does not exist"
             else:
-                data = Database.loadCollection(collection)
+                data = db.table(collection).data
                 return render_template('collection.html', collection=collection, data=data)
         else:
             return redirect(url_for('web_login'))
@@ -335,11 +337,10 @@ def web_createtoken():
 def webgetdata(collection):
     if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
-            if collection not in Database.collections:
+            if collection not in db.get_tables():
                 return "Collection does not exist"
             else:
-                x = str(Database.loadCollection(collection))
-                return x
+                return json.dumps(db.table(collection).data)
         else:
             return redirect(url_for('web_login'))
     else:
@@ -363,10 +364,10 @@ def getallroutes():
 def web_delete_collection(collection):
     if webUI:
         if LOGGED == True and LOGGED_IP == request.remote_addr:
-            if collection not in Database.collections:
+            if collection not in db.get_tables():
                 return "Collection does not exist"
             else:
-                Database.deleteCollection(collection)
+                db.delete_table(collection)
                 return redirect(url_for('web_dashboard'))
         else:
             return redirect(url_for('web_login'))
