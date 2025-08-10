@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 
 
 class Table:
@@ -27,6 +28,8 @@ class Table:
             json.dump(self.data, f, indent=4)
 
     def add(self, item):
+        if '_id' not in item:
+            item['_id'] = str(uuid.uuid4())
         self.data.append(item)
         self.save()
 

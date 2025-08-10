@@ -1,6 +1,6 @@
 import uuid
 from flask import *
-from src.crispydb.db import CrispyDB
+from crispydb.db import CrispyDB
 from src.configman import *
 import src.configman as config
 from src.forms import *
@@ -8,6 +8,7 @@ from flask_bootstrap import Bootstrap
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
+import io
 
 SECRET_KEY = os.urandom(32)
 
@@ -57,15 +58,16 @@ def getdata(collection):
 def createToken():
     auth = request.authorization
     if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            token = str(uuid.uuid4())
-            config.tokens.append(token)
-            with open('src/config/tokens.json', 'w') as f:
-                json.dump(config.tokens, f, indent=4)
-            print("TOKEN HAS BEEN CREATED, {}".format(token))
-            return json.dumps(token)
-        else:
-            return json.dumps({'error': 'Invalid credentials'})
+        for user in users:
+            if auth.username == user['username'] and auth.password == user['password']:
+                if user['role'] == 'admin':
+                    token = str(uuid.uuid4())
+                    config.tokens.append(token)
+                    with open('src/config/tokens.json', 'w') as f:
+                        json.dump(config.tokens, f, indent=4)
+                    print("TOKEN HAS BEEN CREATED, {}".format(token))
+                    return json.dumps(token)
+        return json.dumps({'error': 'Invalid credentials'})
     else:
         return json.dumps({'error': 'Unauthorized'})
 
@@ -82,26 +84,6 @@ def flushToken():
         return json.dumps({'success': 'Token has been flushed'})
     else:
         return json.dumps({'error': 'token not found'})
-
-
-@app.route('/changeauth', methods=['GET', 'POST'])
-def changeauth():
-    auth = request.authorization
-    newpass = request.args.get('newpassword')
-    if auth:
-        if auth.username == USERNAME and auth.password == PASSWORD:
-            if newpass:
-                config.config['admin password'] = newpass
-                with open('config/config.json', 'w') as fx:
-                    json.dump(config, fx, indent=4)
-                    print("PASSWORD HAS BEEN CHANGED, PLEASE RESTART CRISPYDB!!!")
-                return json.dumps({'success': 'Password changed'})
-            else:
-                return json.dumps({'error': 'Invalid new password'})
-        else:
-            return json.dumps({'error': 'Invalid credentials'})
-    else:
-        return json.dumps({'error': 'Unauthorized'})
 
 
 @app.route('/create/<collection>', methods=['GET', 'POST'])
@@ -251,15 +233,16 @@ def web_login():
     if webUI:
         form = LoginForm()
         if form.validate_on_submit():
-            if form.username.data == USERNAME and form.password.data == PASSWORD:
-                global LOGGED
-                LOGGED = True
-                global LOGGED_IP
-                LOGGED_IP = request.remote_addr
-                return redirect(url_for('web_dashboard'))
-            else:
-                print("ERROR")
-
+            for user in users:
+                if form.username.data == user['username'] and form.password.data == user['password']:
+                    if user['role'] in ['admin', 'webui']:
+                        global LOGGED
+                        LOGGED = True
+                        global LOGGED_IP
+                        LOGGED_IP = request.remote_addr
+                        session['role'] = user['role']
+                        return redirect(url_for('web_dashboard'))
+            print("ERROR")
         return render_template('login.html', form=form, name=name)
     else:
         return "WebUI is off"
@@ -287,12 +270,44 @@ def web_dashboard():
         return "WebUI is off"
 
 
+@app.route('/web/edit/<collection>/<doc_id>', methods=['GET', 'POST'])
+def web_edit_document(collection, doc_id):
+    if webUI:
+        if LOGGED and LOGGED_IP == request.remote_addr:
+            if collection not in db.get_tables():
+                return "Collection does not exist"
+
+            table = db.table(collection)
+            doc = table.search({'_id': doc_id})
+
+            if not doc:
+                return "Document not found"
+
+            doc = doc[0]
+            EditForm = create_edit_form(doc)
+            form = EditForm(request.form, data=doc)
+
+            if form.validate_on_submit():
+                new_data = {}
+                for field in form:
+                    if field.name not in ['csrf_token', 'submit']:
+                        new_data[field.name] = field.data
+                table.update({'_id': doc_id}, new_data)
+                return redirect(url_for('web_collections', collection=collection))
+
+            return render_template('edit_document.html', form=form, collection=collection, doc_id=doc_id)
+        else:
+            return redirect(url_for('web_login'))
+    else:
+        return "WebUI is off"
+
+
 # commands for the cli are below
 
 @app.route('/web/deleteall/<collection>', methods=['GET', 'POST'])
 def web_deleteall(collection):
     if webUI:
-        if LOGGED == True and LOGGED_IP == request.remote_addr:
+        if LOGGED == True and LOGGED_IP == request.remote_addr and session.get('role') == 'admin':
             if collection not in db.get_tables():
                 return "Collection does not exist"
             else:
@@ -322,7 +337,7 @@ def web_collections(collection):
 @app.route('/web/createtoken', methods=['GET', 'POST'])
 def web_createtoken():
     if webUI:
-        if LOGGED == True and LOGGED_IP == request.remote_addr:
+        if LOGGED == True and LOGGED_IP == request.remote_addr and session.get('role') == 'admin':
             token = str(uuid.uuid4())
             config.tokens.append(token)
             with open('config/tokens.json', 'w') as f:
@@ -351,6 +366,7 @@ def webgetdata(collection):
 def web_logout():
     global LOGGED, LOGGED_IP
     LOGGED, LOGGED_IP = False, None
+    session.pop('role', None)
     return redirect(url_for('web_login'))
 
 
@@ -363,7 +379,7 @@ def getallroutes():
 @app.route('/web/delete/<collection>', methods=['GET', 'POST'])
 def web_delete_collection(collection):
     if webUI:
-        if LOGGED == True and LOGGED_IP == request.remote_addr:
+        if LOGGED == True and LOGGED_IP == request.remote_addr and session.get('role') == 'admin':
             if collection not in db.get_tables():
                 return "Collection does not exist"
             else:
@@ -371,28 +387,6 @@ def web_delete_collection(collection):
                 return redirect(url_for('web_dashboard'))
         else:
             return redirect(url_for('web_login'))
-
-
-@app.route('/web/changeauth', methods=['GET', 'POST'])
-def web_changeauth():
-    global USERNAME, PASSWORD
-    form = Changeauth()
-    if webUI:
-        if LOGGED == True and LOGGED_IP == request.remote_addr:
-            if form.validate_on_submit():
-                Oldpassword = form.old_password.data
-                Newpassword = form.new_password.data
-                if Oldpassword == PASSWORD:
-                    if Newpassword != '':
-                        PASSWORD = Newpassword
-                        config.config['admin password'] = Newpassword
-                        with open('config/config.json', 'w') as f:
-                            json.dump(config, f, indent=4)
-                            f.close()
-                        return redirect(url_for('web_dashboard'))
-        else:
-            return redirect(url_for('web_login'))
-    return render_template('changeauth.html', form=form)
 
 
 @app.route('/help/endpoints')

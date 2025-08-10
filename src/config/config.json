@@ -1,14 +1,24 @@
 {
     "version": "v2",
     "name": "CrispyDB",
-    "path": "/home/suvid/.crispy",
+    "path": "./data",
     "RequestsPerMinute": 150,
     "CollectionCreationPerMinute": 5,
     "CollectionDeletionPerMinute": 5,
     "port": 5000,
     "host": "0.0.0.0",
-    "admin name": "admin",
-    "admin password": "admin",
     "webUI": true,
-    "filetype": "json"
+    "filetype": "json",
+    "users": [
+        {
+            "username": "admin",
+            "password": "admin",
+            "role": "admin"
+        },
+        {
+            "username": "webui",
+            "password": "webui",
+            "role": "webui"
+        }
+    ]
 }

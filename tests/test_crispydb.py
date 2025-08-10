@@ -1,7 +1,7 @@
 import unittest
 import os
 import shutil
-from src.crispydb.db import CrispyDB
+from crispydb.db import CrispyDB
 
 class TestCrispyDB(unittest.TestCase):
     def setUp(self):
