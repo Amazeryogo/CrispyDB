@@ -1,6 +1,7 @@
 import uuid
 from flask import *
-from crispydb.db import CrispyDB
+from core import *
+from core import CrispyDB
 from src.configman import *
 import src.configman as config
 from src.forms import *
