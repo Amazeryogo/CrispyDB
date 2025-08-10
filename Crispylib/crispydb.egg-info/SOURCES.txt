@@ -1,0 +1,8 @@
+setup.py
+crispydb/__init__.py
+crispydb/db.py
+crispydb/table.py
+crispydb.egg-info/PKG-INFO
+crispydb.egg-info/SOURCES.txt
+crispydb.egg-info/dependency_links.txt
+crispydb.egg-info/top_level.txt
