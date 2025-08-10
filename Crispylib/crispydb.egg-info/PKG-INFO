@@ -3,8 +3,8 @@ Name: crispydb
 Version: 0.1.0
 Summary: A simple JSON-based database.
 Home-page: https://github.com/Amazeryogo/Thought
-Author: Jules
-Author-email:
+Author: Amazeryogo
+Author-email: suvid.datta@gmail.com
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
