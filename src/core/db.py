@@ -1,6 +1,7 @@
 import os
 import shutil
 from .table import Table
+from .collection import Collection
 
 
 class CrispyDB:
@@ -39,10 +40,16 @@ class DB:
     def __init__(self, path):
         self.path = path
         self.tables = {}
+        self.collections = {}
         self.binary_path = os.path.join(self.path, '_bin')
         if not os.path.exists(self.binary_path):
             os.makedirs(self.binary_path)
         self.load_tables()
+
+    def collection(self, name):
+        if name not in self.collections:
+            self.collections[name] = Collection(path=self.path, name=name)
+        return self.collections[name]
 
     def load_tables(self):
         for name in os.listdir(self.path):
