@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 
 class Collection:
     def __init__(self, path, name):
@@ -23,6 +24,23 @@ class Collection:
     def save(self):
         with open(self.file, "w") as f:
             json.dump(self.data, f, indent=4)
+
+    def insert(self, documents):
+        """Inserts a single document or a list of documents."""
+        if not isinstance(documents, list):
+            documents = [documents]
+
+        count = 0
+        for doc in documents:
+            if '_id' not in doc:
+                doc['_id'] = str(uuid.uuid4())
+            self.data.append(doc)
+            count += 1
+
+        if count > 0:
+            self.save()
+
+        return count
 
     def search(self, query, sort=None, limit=None):
         results = []

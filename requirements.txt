@@ -1,9 +1,5 @@
 Flask
 Flask_Limiter
-Flask_WTF
 requests
 pwinput
 waitress
-flask_bootstrap
-WTForms
-websockets
